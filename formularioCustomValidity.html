@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+    </head>
+    <body>
+        <form name="miForm" method="get">
+<!-- >           <input type="text" id="name" required> <-->
+
+            Nombre <input type="text" id="name" name="name" required minlength="4" maxlength="5" placeholder="introducir nombre">
+            Edad   <input type="number" id = "edat" name="edad" required placeholder="introducir edad">
+            <input type="submit" value="send">
+<!-- >            <button> Enviar </button> Es equivalente al input submit<-->
+
+        </form>
+        <script>
+            let miInput = document.getElementById ("name")
+    // Revisar ??
+            miInput.addEventListener('input',() => { 
+                miInput.setCustomValidity('')
+                miInput.checkValidity()
+            
+            })
+            
+            miInput.addEventListener('invalid',() => { 
+                miInput.setCustomValidity('Este campo es obligatorio. Rellenelo')
+            })
+
+            let laEdad = document.getElementById ("edat")
+            laEdad.addEventListener('input',() => { 
+                laEdad.setCustomValidity('')
+                laEdad.checkValidity()
+            
+            })
+            
+            laEdad.addEventListener('invalid',() => { 
+                laEdad.setCustomValidity('Este campo es obligatorio. Rellenelo')
+            })
+
+
+
+
+        </script>
+    </body>
+
+</html>

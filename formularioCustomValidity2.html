@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+    </head>
+    <body>
+        <!-- > Formulario ejercicio en aula
+            nombre obligatorio solo letras
+            precio ibligatorio solo numero
+            email opcional formato email
+            aceptar politicas obligatorio
+            imagen de producto peso del archivo 2M extension jpg,jpeg, png
+            <-->
+    
+        <form name="miForm" method="get">
+            <input type='file' name="foto" id="foto">
+<!-- >      <input type="text" id="name" name="name" pattern="[A-Za-z]+" required placeholder="introducir nombre"> <br>
+            <input type="number" id = "edat" name="edat" pattern="[0-9]" required placeholder="introducir edad"><br>
+            <input type="email" id = "email" name="email" pattern="[_%+-]+@[a-zA-Z0-9. -]+\\. [a-zA-Z]{2,}$/,]" required placeholder="introducir email"><br>
+            Aceptar Politicas <input type="checkbox" id = "politicas" name="politicas" required> 
+<-->
+            <input type="submit" value="send">
+<!-- >      <button> Enviar </button> Es equivalente al input submit<-->
+
+        </form>
+        <script>
+
+            function lanzarEscucha ($nameElemento,$mensaje) {
+
+            let miInput = document.getElementById ($nameElemento)
+            console.log (miInput.value)
+            miInput.addEventListener('input',() => { 
+                miInput.setCustomValidity('')
+                miInput.checkValidity()
+
+                })
+           
+            miInput.addEventListener('invalid',() => {
+                console.log (miInput.validity)
+                let $mensaje = ""
+//               if miInput.validity.inputMissing { let $mensaje = "Campo Obligatorio";}
+//                if this.validity.inputMissing { let$mensaje = "Campo Obligatorio";}
+                
+                miInput.setCustomValidity($mensaje)
+                })
+            }
+            function validarImagen (){
+
+                imagen.setCustomValidity('')
+                console.log(event.target.files)
+                console.log(this)
+                console.log (imagen.validity)
+
+                let{name:nombreImagen, size:midaImagen}= this.files[0]
+                console.log(nombreImagen, midaImagen)
+                const extensionesPermitidas = ['jpg','jpeg','png']
+                miExtension = nombreImagen.split(".")
+                if (!extensionesPermitidas.includes(miExtension)){
+                    imagen.setCustomValidity('La extension no es valida')
+                }
+
+                if (midaImagen>(2*1024*1024)) {
+                    imagen.setCustomValidity ("El tamaño es más grande de lo permitido")
+                }
+
+                }
+            
+            let imagen = document.querySelector('#foto')
+            imagen.addEventListener ('input', validarImagen)
+
+
+/*     lanzarEscucha('name','Campo Obligatorio. Introduzca solo letras')
+            lanzarEscucha('edat','Campo Obligatorio. Introduzca solo numeros')
+            lanzarEscucha('email','Formato incorrecto')
+            lanzarEscucha ('politicas','Confirme politicas') 
+*/
+
+
+        </script>
+    </body>
+
+</html>
