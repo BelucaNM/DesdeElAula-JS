@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+    </head>
+    <body>
+        <form id="miForm"><!-- onsubmit="return validarFormulario()" -->
+            <input type="text" name="nombre" id="nombre" placeholder="introducir nombre"><br>
+            <span id="nombreError" style="font-size: small; color: #f00;"></span>
+            <br>
+            <input type="text" name="edad" id="edad" placeholder="introducir edad"><br>
+            <span id="edadError" style="font-size: small; color: #f00;"></span>
+            <br>
+            <input type="submit" value="Send">
+        </form>
+    </body>
+    <script>
+        let miForm = document.getElementById("miForm")
+        let onlyLetters = /^[A-Za-z]+$/;
+        let onlyNumbers = /^[0-9]+$/;
+        //voy a hacer la validacion desde event submit del form
+        miForm.addEventListener('submit', ()=>{
+            let error= false
+
+            //interrumpe el funcionamiento del evento que lo envoca en este caso es el submit, por lo tanto para el envio del formulario
+            event.preventDefault()
+            // con la funcion trim quitamos los espacios en blanco de delante y detras para evitar que el usuario intodzca solo espacios en blanco
+            let nombre = document.getElementById("nombre").value.trim()
+            //accedo al elemento span nombreError
+            let nombreError = document.getElementById("nombreError")
+
+            let edad = document.getElementById("edad").value.trim()
+            //accedo al elemento span edadError
+            let edadError = document.getElementById("edadError")
+
+            //volver a escribir el valor introducido sin los espacios de delante y detras para cuando se envia
+            document.getElementById("nombre").value = nombre
+            document.getElementById("edad").value = edad
+
+            if(nombre.length==0){ // obligatorio
+                nombreError.innerHTML = "El campo nombre es obligatorio"
+                error = true
+            }else if (!(onlyLetters.test(nombre))){ // formato
+                nombreError.innerHTML = "El campo solo permite letras"
+                error = true
+            }else{
+                nombreError.innerHTML =""
+            }
+               
+
+            if(edad.length==0){ // obligatorio
+                edadError.innerHTML = "El campo edad es obligatorio"
+                error=true
+            }else if (!(onlyNumbers.test(edad))){ // formato
+                edadError.innerHTML = "El campo solo permite numeros"
+                error = true
+            } else{
+                edadError.innerHTML = ""
+            }   
+           
+            //Si no hay ningun error enviar el formulario
+            if(!error) miForm.submit()
+                
+        })
+
+        function validarFormulario(){
+            let nombre = document.getElementById("nombre").value.trim()
+            console.log(nombre)
+
+            if(nombre.length==0)
+                return false
+            else 
+                return true
+                //console.log("aqui voy a validar")
+        }
+
+      
+        
+    </script>
+</html>

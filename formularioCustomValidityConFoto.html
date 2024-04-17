@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+    </head>
+    <body>
+        
+    
+        <form name="miForm" method="get">
+            <input type='file' name="foto" id="foto">
+            <input type="submit" name="enviar" id="enviar" value="abrir">
+
+        </form>
+        <script>
+
+            function validarImagen (){
+
+                imagen.setCustomValidity('')
+                console.log(event.target.files)
+                console.log(this)
+                console.log (imagen.validity)
+
+                let{name:nombreImagen, size:midaImagen}= this.files[0]
+                console.log(nombreImagen, midaImagen)
+                const extensionesPermitidas = ['jpg','jpeg','png']
+                miExtension = nombreImagen.split(".")
+                console.log(miExtension)
+                if (!extensionesPermitidas.includes(miExtension[1])){
+                    console.log (" NO es un fichero correcto")
+                    imagen.setCustomValidity('La extension no es valida')}
+
+                if (midaImagen>(2*1024*1024)) {
+                    imagen.setCustomValidity ("El tamaño es más grande de lo permitido")}
+
+                }
+            
+            let imagen = document.querySelector('#foto')
+            imagen.addEventListener ('input', validarImagen)
+
+
+
+        </script>
+    </body>
+
+</html>

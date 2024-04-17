@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+</head>
+<body>
+    <div class="container">
+        <form id="formulario" enctype="multipart/form-data">
+            <div>
+                <label for="name">Nombre: </label>
+                <input type="text" name="name" id="name" required autocomplete="off">
+            </div>
+            <div>
+                <label>Marca:
+                    <input type="text" id="marca" name="marca" required pattern="^[a-zA-Z0-9]{4,}$" autocomplete="off">
+                </label>
+            </div>
+
+                <label>Foto:
+                    <input type="file" id="foto" name="foto">
+                </label>
+
+            <button>Enviar</button>
+        </form>
+</div>
+</body>
+
+<script>
+    const miInput = document.querySelector('#name')
+    const inputMarca = document.querySelector('#marca');
+    const inputFile = document.querySelector('#foto');
+
+    // Quita la validación mientras escribes
+    miInput.addEventListener('input', () => {
+        // Quita el mensaje según escribes
+        miInput.setCustomValidity('');
+        // Comprueba si debe validarlo
+        miInput.checkValidity();
+    });
+    // Quita la validación mientras escribes
+    inputMarca.addEventListener('input', () => {
+
+        // Quita el mensaje según escribes
+        inputMarca.setCustomValidity('');
+        // Comprueba si debe validarlo
+        inputMarca.checkValidity();
+    });
+     // Muestra el mensaje de validación
+     miInput.addEventListener('invalid', () => {
+        miInput.setCustomValidity('El campo nombre es obligatorio');
+        inputMarca.setCustomValidity(mensajeErrorMarcaCorto);
+    });
+     // Muestra el mensaje de validación
+     inputMarca.addEventListener('invalid', () => {
+        if(inputMarca.validity.valueMissing)
+            inputMarca.setCustomValidity("el campo es obligatorio");
+        else if(inputMarca.validity.patternMismatch)
+            inputMarca.setCustomValidity("Muy corta. Dame un nombre con 4 o mas caracteres.");
+    });
+
+/* file**/
+    const oneMegaBytesInBytes = 1024*1024; 
+    const pesoLimite = oneMegaBytesInBytes * 2; // 2 megabyte
+    const extensionesPermitidas =  ['jpg','jpeg','png'];
+   // const miInput = document.querySelector('#foto');
+
+    function validarImagen () {
+
+        // Resetea mensaje
+        inputFile.setCustomValidity('');
+
+        // Destructuramos para obtener el nombre y el tamaño
+        const { name: archivoNombre, size: archivoPeso } = this.files[0];
+
+
+        // Obtenemos la extensión
+        const fileExtension = archivoNombre.split(".").pop();
+
+        // Validamos si tienes una extensión válida
+        if (!extensionesPermitidas.includes(fileExtension)){
+            inputFile.setCustomValidity('Formato no válido, solo se admite jpg y png');
+        }
+
+        /* otra manera de validar el formato de del file con expresiones regulares
+          let regex = new RegExp(/[^\s]+(.*?).(jpg|jpeg|png|gif|JPG|JPEG|PNG|GIF)$/);
+          if(!regex.test(archivoNombre))
+            inputFile.setCustomValidity('Formato no válido, solo se admite jpg|jpeg|png|gif|JPG|JPEG|PNG|GIF');
+        */
+
+        // Validamos el peso
+        if(archivoPeso > pesoLimite) {
+            inputFile.setCustomValidity('Demasiado grande');
+        }
+    }
+
+    inputFile.addEventListener("input", validarImagen);
+/****/
+   
+
+</script>
+</html>
