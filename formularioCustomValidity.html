@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <Title > Formulario en el que se lanza un escucha sobre un input 
+            de manera que si se detecta una entrada se hace una validacion y se pueden personalizar los mensajes</Title>
 
     </head>
     <body>
@@ -14,19 +16,9 @@
 
         </form>
         <script>
-            let miInput = document.getElementById ("name")
-    // Revisar ??
-            miInput.addEventListener('input',() => { 
-                miInput.setCustomValidity('')
-                miInput.checkValidity()
-            
-            })
-            
-            miInput.addEventListener('invalid',() => { 
-                miInput.setCustomValidity('Este campo es obligatorio. Rellenelo')
-            })
-
-            let laEdad = document.getElementById ("edat")
+//Propuesta Ikram
+/*
+         let laEdad = document.getElementById ("edat")
             laEdad.addEventListener('input',() => { 
                 laEdad.setCustomValidity('')
                 laEdad.checkValidity()
@@ -36,6 +28,21 @@
             laEdad.addEventListener('invalid',() => { 
                 laEdad.setCustomValidity('Este campo es obligatorio. Rellenelo')
             })
+*/
+
+            let miInput = document.getElementById ("name")
+            miInput.addEventListener('input',() => { 
+                miInput.setCustomValidity('')
+                const validityState = miInput.validity;
+                console.log(validityState);
+                miInput.checkValidity(); //lanza un evento de invalid
+            
+            })
+            // Para cambiar el mensaje defecto
+             miInput.addEventListener('invalid',() => { 
+                miInput.setCustomValidity('Este campo es obligatorio. Rellenelo')
+            }) 
+
 
 
 

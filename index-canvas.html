@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Canvas Drawing con cambio de color</title>
+<style>
+  canvas {
+    border: 1px solid black;
+  }
+</style>
+</head>
+<body>
+
+<canvas id="myCanvas" width="500" height="500"></canvas>
+<button id = "red" style="background-color: red;" onClick="javascript:ponEnColor('red')"> Pulse para linea roja </button>
+<button id = "blue"  style="background-color: blue;"onClick="javascript:ponEnColor('blue')"> Pulse para linea azul </button>
+<button id = "green" style="background-color: green;"onClick="javascript:ponEnColor('green')"> Pulse para linea verde </button>
+
+<script>
+  // Obtener el lienzo
+  var canvas = document.getElementById("myCanvas");
+  var ctx = canvas.getContext("2d");
+
+  // Añade dos rectangulos de colores
+  ctx.beginPath(); // Start a new path
+  ctx.rect(10, 20, 70, 50); // Add a rectangle to the current path
+  ctx.fillStyle = "red";
+  ctx.fill(); // Render the path
+
+  ctx.beginPath(); // Start a new path
+  ctx.rect(85, 20, 70, 50); // Add a rectangle to the current path
+  ctx.fillStyle = "blue";
+  ctx.fill(); // Render the path
+  
+  // Variables para guardar la posición del ratón
+  var isDrawing = false;
+  var lastX = 0;
+  var lastY = 0;
+
+  // variables de color
+  var selectedColor = "";
+
+  // Evento de ratón: comienzo del dibujo
+  canvas.addEventListener("mousedown", function(e) {
+    isDrawing = true;
+    lastX = e.offsetX;
+    lastY = e.offsetY;
+  });
+  
+  // Evento de ratón: movimiento durante el dibujo
+  canvas.addEventListener("mousemove", function(e) {
+    if (isDrawing) {
+      var currentX = e.offsetX;
+      var currentY = e.offsetY;
+      
+      // Dibujar una línea desde la posición anterior a la actual
+      ctx.beginPath();
+      ctx.moveTo(lastX, lastY);
+      ctx.strokeStyle = selectedColor;
+      ctx.lineTo(currentX, currentY);
+      ctx.stroke();
+      
+      // Actualizar la posición anterior con la posición actual
+      lastX = currentX;
+      lastY = currentY;
+    }
+  });
+
+   // Evento de ratón: pasar por encima de los rectangulos de color y cambiar color de linea
+   canvas.addEventListener("mouseup", function() {
+    isDrawing = false;
+  });
+  
+  // Evento de ratón: fin del dibujo
+  canvas.addEventListener("mouseup", function() {
+    isDrawing = false;
+  });
+
+  // Event : cambiar el color de la linea
+  function ponEnColor (color){
+    
+    selectedColor = color
+    console.log ("cambiando color to " , color)
+}
+
+
+</script>
+
+</body>
+</html>
