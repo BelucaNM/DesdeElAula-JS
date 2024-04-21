@@ -32,15 +32,15 @@
 
             let miInput = document.getElementById ("name")
             miInput.addEventListener('input',() => { 
-                miInput.setCustomValidity('')
+                miInput.setCustomValidity('') // inicializa el mensaje de error
                 const validityState = miInput.validity;
                 console.log(validityState);
                 miInput.checkValidity(); //lanza un evento de invalid
             
             })
             // Para cambiar el mensaje defecto
-             miInput.addEventListener('invalid',() => { 
-                miInput.setCustomValidity('Este campo es obligatorio. Rellenelo')
+            miInput.addEventListener('invalid',() => { 
+            miInput.setCustomValidity('Este campo es obligatorio. Rellenelo')
             }) 
 
 

@@ -121,8 +121,8 @@ button:hover {
         <!-- Entrada para nombre de Usuario -->
 
         <div>
-            <label for="nombreDeUsuario">Nombre de Usuario</label>
-            <i class="fas fa-user"></i>
+            <label for="nombreDeUsuario" >Nombre de Usuario</label>
+            <i class="fas fa-user" ></i>
 
             <input
                     type="text"
@@ -131,9 +131,9 @@ button:hover {
                     placeholder="Introducir nombre"
             />
 
-            <i class="fas fa-exclamation-circle failure-icon"></i>
+            <i class="fas fa-exclamation-circle failure-icon" ></i>
             <i class="far fa-check-circle success-icon"></i>
-
+ <!-- ><span id = "elUsuarioDisplay"> </span> <-->
             <div class="error"></div>
 
         </div>
@@ -152,7 +152,7 @@ button:hover {
 
             <i class="fas fa-exclamation-circle failure-icon"></i>
             <i class="far fa-check-circle success-icon"></i>
-
+<!-- ><span id = "elCorreoDisplay"> </span><-->
             <div class="error"></div>
 
         </div>
@@ -171,7 +171,7 @@ button:hover {
 
             <i class="fas fa-exclamation-circle failure-icon"></i>
             <i class="far fa-check-circle success-icon"></i>
-
+<!-- ><span id = "laContrasenaDisplay"> </span><-->
             <div class="error"></div>
 
         </div>
@@ -184,7 +184,115 @@ button:hover {
     </form>
 
 </div>
+<script>
+// lanzar listener sobre el campo nombre
+const elUsuario = document.getElementById("nombreDeUsuario");
+const elEmail   = document.getElementById("correoElectronico");
+const laContrasena = document.getElementById("contrasena");
 
+
+const elUsuarioDisplay = document.getElementById("elUsuarioDisplay");
+const elCorreoDisplay = document.getElementById("elEmailDisplay");
+const laContrasenaDisplay = document.getElementById("laContrasenaDisplay");
+
+const divError = document.querySelectorAll('div.error');
+divError[0].innerHTML = "Username cannot be blank";
+divError[1].innerHTML = "Email cannot be blank";
+divError[2].innerHTML = "Password cannot be blank";
+
+const iconFailure = document.querySelectorAll('i.failure-icon');
+Array.from(iconFailure).forEach((elemento) => {
+        elemento.style.visibility="visible";
+    });
+const iconSuccess = document.querySelectorAll('i.success-icon');
+Array.from(iconSuccess).forEach((elemento) => {
+        elemento.style.visibility = "hidden";
+    });
+
+/*
+elUsuario.addEventListener ('input',(e) => {
+    elUsuarioDisplay.textContent =elUsuario.value;
+    
+})
+
+elEmail.addEventListener ('input',(e) => {
+    elCorreoDisplay.textContent =elEmail.value;
+    
+})
+laContrasena.addEventListener ('input',(e) => {
+    laContrasenaDisplay.textContent =laContrasena.value;
+    
+    
+})
+*/
+
+formulario.addEventListener('submit', (event)=>{
+    //interrumpe el funcionamiento del evento que lo envoca en este caso es el submit, 
+    
+    event.preventDefault()
+    let error = false;
+    
+    
+    let onlyLetters = /^[A-Za-z]+$/;  
+    
+
+    if (elUsuario.value.trim().length == 0) {
+            error = true;
+            divError[0].innerHTML = "Username cannot be blank";
+            iconSuccess [0].style.visibility = 'hidden';
+            iconFailure [0].style.visibility="visible";
+
+            } else if (!(onlyLetters.test(elUsuario.value))) {
+                error = true;
+                divError[0].innerHTML = "Username only must have letters";
+                iconSuccess [0].style.visibility = 'hidden';
+                iconFailure [0].style.visibility="visible"; 
+            } else {
+            divError[0].innerHTML = "";
+            iconSuccess [0].style.visibility="visible";
+            iconFailure [0].style.visibility = 'hidden';
+            elUsuario.value = elUsuario.value.trim();
+            };
+            
+    
+    let pattern=/^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+
+    if (elEmail.value.length == 0) {
+            error = true;
+            divError[1].innerHTML = "Email cannot be blank";
+            iconSuccess [1].style.visibility = 'hidden';
+            iconFailure [1].style.visibility="visible";
+
+            } else if (!(pattern.test(elEmail.value))) { 
+                error = true;
+                divError[1].innerHTML = "Incorrect email";
+                iconSuccess [1].style.visibility = 'hidden';
+                iconFailure [1].style.visibility="visible";
+            
+            } else {
+                divError[1].innerHTML = "";
+                iconSuccess [1].style.visibility="visible";
+                iconFailure [1].style.visibility = 'hidden';
+
+            }
+
+    if (laContrasena.value.length == 0) {
+            error = true;
+            divError[2].innerHTML = "Password cannot be blank";
+            iconSuccess [2].style.visibility = 'hidden';
+            iconFailure [2].style.visibility="visible";
+
+                      
+            } else {
+                divError[2].innerHTML = "";
+                iconSuccess [2].style.visibility="visible";
+                iconFailure [2].style.visibility = 'hidden';
+
+            }
+        if (!error){formulario.submit()}
+
+        })
+</script> 
 
 </body>
 </html>
