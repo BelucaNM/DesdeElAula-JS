@@ -150,7 +150,7 @@ button:hover {
                     placeholder="abc@gmail.com"
             />
 
-            <i id="elId" class="fas fa-exclamation-circle failure-icon"></i>
+            <i iclass="fas fa-exclamation-circle failure-icon"></i>
             <i class="far fa-check-circle success-icon"></i>
 <!-- ><span id = "elCorreoDisplay"> </span><-->
             <div class="error"></div>
@@ -190,8 +190,6 @@ const elUsuario = document.getElementById("nombreDeUsuario");
 const elEmail   = document.getElementById("correoElectronico");
 const laContrasena = document.getElementById("contrasena");
 
-document.getElementById ("elId").style.visibility = "visible";
-
 const elUsuarioDisplay = document.getElementById("elUsuarioDisplay");
 const elCorreoDisplay = document.getElementById("elEmailDisplay");
 const laContrasenaDisplay = document.getElementById("laContrasenaDisplay");
@@ -203,11 +201,13 @@ divError[2].innerHTML = "Password cannot be blank";
 
 const iconFailure = document.querySelectorAll('i.failure-icon');
 Array.from(iconFailure).forEach((elemento) => {
-        elemento.style.visibility="visible";
+//        elemento.style.visibility="visible";
+        elemento.style.opacity=1;
     });
 const iconSuccess = document.querySelectorAll('i.success-icon');
 Array.from(iconSuccess).forEach((elemento) => {
-        elemento.style.visibility = "hidden";
+//        elemento.style.visibility = "hidden";
+        elemento.style.opacity=0;
     });
 
 /*
@@ -240,18 +240,18 @@ formulario.addEventListener('submit', (event)=>{
     if (elUsuario.value.trim().length == 0) {
             error = true;
             divError[0].innerHTML = "Username cannot be blank";
-            iconSuccess [0].style.visibility = 'hidden';
-            iconFailure [0].style.visibility="visible";
+            iconSuccess [0].style.opacity = 0;
+            iconFailure [0].style.opacity=1;
 
             } else if (!(onlyLetters.test(elUsuario.value))) {
                 error = true;
                 divError[0].innerHTML = "Username only must have letters";
-                iconSuccess [0].style.visibility = 'hidden';
-                iconFailure [0].style.visibility="visible"; 
+                iconSuccess [0].style.opacity = 0;
+                iconFailure [0].style.opacity=1; 
             } else {
             divError[0].innerHTML = "";
-            iconSuccess [0].style.visibility="visible";
-            iconFailure [0].style.visibility = 'hidden';
+            iconSuccess [0].style.opacity=1;
+            iconFailure [0].style.opacity = 0;
             elUsuario.value = elUsuario.value.trim();
             };
             
@@ -261,33 +261,33 @@ formulario.addEventListener('submit', (event)=>{
     if (elEmail.value.length == 0) {
             error = true;
             divError[1].innerHTML = "Email cannot be blank";
-            iconSuccess [1].style.visibility = 'hidden';
-            iconFailure [1].style.visibility="visible";
+            iconSuccess [1].style.opacity = 0;
+            iconFailure [1].style.opacity= 1;
 
             } else if (!(pattern.test(elEmail.value))) { 
                 error = true;
                 divError[1].innerHTML = "Incorrect email";
-                iconSuccess [1].style.visibility = 'hidden';
-                iconFailure [1].style.visibility="visible";
+                iconSuccess [1].style.opacity = 0;
+                iconFailure [1].style.opacity=1;
             
             } else {
                 divError[1].innerHTML = "";
-                iconSuccess [1].style.visibility="visible";
-                iconFailure [1].style.visibility = 'hidden';
+                iconSuccess [1].style.opacity=1;
+                iconFailure [1].style.opacity = 0;
 
             }
 
     if (laContrasena.value.length == 0) {
             error = true;
             divError[2].innerHTML = "Password cannot be blank";
-            iconSuccess [2].style.visibility = 'hidden';
-            iconFailure [2].style.visibility="visible";
+            iconSuccess [2].style.opacity = 0;
+            iconFailure [2].style.opacity=1;
 
                       
             } else {
                 divError[2].innerHTML = "";
-                iconSuccess [2].style.visibility="visible";
-                iconFailure [2].style.visibility = 'hidden';
+                iconSuccess [2].style.opacity=1;
+                iconFailure [2].style.opacity =0;
 
             }
         if (!error){formulario.submit()}
