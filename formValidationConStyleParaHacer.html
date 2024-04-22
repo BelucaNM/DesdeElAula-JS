@@ -150,7 +150,7 @@ button:hover {
                     placeholder="abc@gmail.com"
             />
 
-            <i class="fas fa-exclamation-circle failure-icon"></i>
+            <i id="elId" class="fas fa-exclamation-circle failure-icon"></i>
             <i class="far fa-check-circle success-icon"></i>
 <!-- ><span id = "elCorreoDisplay"> </span><-->
             <div class="error"></div>
@@ -190,6 +190,7 @@ const elUsuario = document.getElementById("nombreDeUsuario");
 const elEmail   = document.getElementById("correoElectronico");
 const laContrasena = document.getElementById("contrasena");
 
+document.getElementById ("elId").style.visibility = "visible";
 
 const elUsuarioDisplay = document.getElementById("elUsuarioDisplay");
 const elCorreoDisplay = document.getElementById("elEmailDisplay");
