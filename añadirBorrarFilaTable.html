@@ -1,0 +1,144 @@
+<HTML>
+    <HEAD>
+    <title> añadirBorrarElementTable.php Crea tabla PHP con links a Delete</title>
+            <meta charset="utf-8" >
+            <link rel="canonical" href="https://multitod.com/iconos-para-paginas-web-codigo-php.php" />
+            <style>
+                
+                .icoBoli {font-size: 20px;}
+                .icoBasu {font-size: 20px;}
+                .icoEscr {font-size: 20px; opacity : 0}
+                .icoDown {font-size: 20px;}
+                td { border: 2px solid red;}
+                table {border:  collapse; }
+                .carpeta {opacity: 0;}
+            </style>  
+    </HEAD>
+    
+    <body>
+
+        <p> Añadir-borrar Tabla </p>
+        <table id="laTable">
+            <tbody>
+                <tr> 
+                    <td> id </td>
+                    <td> Nombre </td>
+                </tr>
+            </tbody>
+        </table>
+        <div>
+         <a href='javascript:añadeFila()'> Afegir </a>
+        </div>
+
+        <dialog id="wmodal" close>
+            <form method="dialog">
+              <section>
+                <p> Confirme el borrado de la fila : </p>
+              </section>
+              <menu>
+                <button id="cancelBoton"  type="reset">Cancel</button>
+                <button id="confirmBoton" type="submit">Confirm</button>
+              </menu>
+            </form>
+        </dialog>
+           
+        <SCRIPT>
+
+        let laTable= document.getElementById('laTable');
+        let tbody = laTable.getElementsByTagName('tbody')[0];
+
+        
+        function añadeFila() {
+
+            let numeroFila = laTable.rows.length;
+            let nuevaFila = tbody.insertRow();
+            let cell1 = nuevaFila.insertCell (0);
+            let cell2 = nuevaFila.insertCell (1);
+            let cell3 = nuevaFila.insertCell (2);
+            cell1.textContent = numeroFila;
+            cell2.textContent = "F**"+numeroFila;
+
+        // Debería generar el codigo equivalente a cell3.innerHTML = "<a href='javascript:borraFila(this);'><span class='icoBasu'>&#128465;</span></a></td></tr>";
+ 
+            enlace = document.createElement("a");
+            enlace.href="#";
+            enlace.textContent="";
+            enlace.onclick = function () {
+                borraFila(nuevaFila);
+            }
+
+            cell3.appendChild(enlace);
+
+            elSpan = document.createElement("span");
+            elSpan.className = 'icoBasu';
+            elSpan.innerHTML = '&#128465;';
+
+            enlace.appendChild (elSpan);
+
+            };
+
+        function borraFila(laFila) { // codigo Toni
+            laRespuesta = pideConfirmacion ();
+            if (laRespuesta) {
+                console.log(laFila);
+                tbody.removeChild(laFila);
+            } else {
+                console.log ("operacion cancelada");
+            };
+        };
+    
+        function creaTable() {
+
+        // crea una tabla inicial de 10 elementos
+            for (var i = 1; i < 10; i++) {
+                let nuevaFila = tbody.insertRow();
+                let cell1 = nuevaFila.insertCell (0);
+                let cell2 = nuevaFila.insertCell (1);
+                let cell3 = nuevaFila.insertCell (2);
+                cell1.textContent = i;
+                cell2.textContent = "F"+i;
+                cell3.innerHTML = "<a href='#' onclick ='javascript:borraFila0(this);'><span class='icoBasu'>&#128465;</span></a></td></tr>";
+                };
+        } ;
+        
+        function borraFila0(laRef) { // codigo IN
+            var wmodal = document.getElementById("wmodal");
+            console.log ( wmodal);
+            wmodal.showModal();
+            if (!wmodal.open) { 
+                
+                console.log("Dialog close");
+                wmodal.open();
+            } else {
+                console.log("Dialog is open");
+            };
+
+            console.log(laRef);
+            let laFila = laRef.parentElement.parentElement;
+            // Update button opens a modal dialog
+
+
+            // lanza escuchas sobre los botones 
+            var cancelButton = document.getElementById("cancel");
+            var confirmButton = document.getElementById("confirm");
+
+            confirmBoton.addEventListener("click", function () {
+                laFila.remove();
+            });
+      
+            // Form cancel button closes the dialog box
+            cancelBoton.addEventListener("click", function () {
+                wmodal.close();
+             });
+            
+        };
+
+        
+        creaTable();
+          
+        
+    
+        </SCRIPT>
+      
+    </body>
+</HTML>
