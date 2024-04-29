@@ -1,0 +1,63 @@
+<HTML>
+    <HEAD>
+        <SCRIPT>
+            function getRandom(min, max) {
+                let value = Math.random() * (max - min) + min;
+                return parseInt(value);
+            
+            }
+
+            function print(missatge) {
+                console.log(missatge);
+                missatge+="<br>";
+                //document.getElementById("sortida").innerHTML+=missatge;
+            }
+
+            document.addEventListener("DOMContentLoaded", function() {
+                let theNumber = getRandom(1, 100);
+                console.log(theNumber);
+
+                let end = false;
+                let iteraciones = 0;
+                let limiteIteraciones= 15;
+            
+
+                while (!end) {
+                    // incrementa las iteracions
+                    iteraciones++;
+                    
+                    
+                    //print("Quin número creus que és?. En cas de voler abandonar escriu -1");
+                    n = prompt("Quin número creus que és?. Tienes " + limiteIteraciones +
+                    " posibilidades. En cas de voler abandonar escriu -1");
+                    limiteIteraciones--;
+                    
+                    if ((n<0) || (limiteIteraciones==0)) {
+                        console.log ( "Gracias por participar.")
+                        if (limiteIteraciones==0) {console.log ( "Has agotado el número de intentos.")};
+                      //  print("Gracias por participar.");
+                        end = true;
+                    }
+                    else if (n < theNumber) {
+                        console.log ( "El nombre que cerques és més gran que " + n)
+                      //  print("El nombre que cerques és més gran");
+                    }
+                    else if (n > theNumber) {
+                        console.log ( "El nombre que cerques és més petit que " + n)
+                      //  print("El nombre que cerques és més petit");
+                    }
+                    else if (n == theNumber) {
+                        console.log ( "Ho has encertat era el "+theNumber+"!! En" + iteraciones +" iteraciones")
+                     //   print("Ho has encertat era el "+theNumber+"!! En" + iteraciones +" iteraciones");
+                        end = true;
+                    }
+                }
+
+            });
+        </SCRIPT>        
+    </HEAD>
+
+    <BODY>
+        <DIV id="sortida"></DIV>
+    </BODY>
+</HTML>
