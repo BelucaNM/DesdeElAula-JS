@@ -12,6 +12,11 @@
                 td { border: 2px solid red;}
                 table {border:  collapse; }
                 .carpeta {opacity: 0;}
+                #drop_zone {
+                    border: 5px dashed blue;
+                    width: 300px;
+                    height: 200px;
+                    }
             </style>  
     </HEAD>
     
@@ -30,6 +35,10 @@
          <a href='javascript:añadeFila()'> Afegir </a>
         </div>
 
+        <div id="drop_zone" ondrop="dropHandler(event)" ondragover="event.preventDefault()">
+            <p>Drag one or more files to this <i>drop zone</i>.</p>
+        </div>
+
         <dialog id="wmodal" close>
             <form method="dialog">
               <section>
@@ -44,14 +53,17 @@
            
         <SCRIPT>
 
+    
+
         let laTable= document.getElementById('laTable');
         let tbody = laTable.getElementsByTagName('tbody')[0];
 
         
-        function añadeFila() {
+        function añadeFila() { // codigo Toni
 
             let numeroFila = laTable.rows.length;
             let nuevaFila = tbody.insertRow();
+            nuevaFila.draggable = false;
             let cell1 = nuevaFila.insertCell (0);
             let cell2 = nuevaFila.insertCell (1);
             let cell3 = nuevaFila.insertCell (2);
@@ -64,7 +76,8 @@
             enlace.href="#";
             enlace.textContent="";
             enlace.onclick = function () {
-                borraFila(nuevaFila);
+//              borraFila(nuevaFila);
+                borraFila0(this);
             }
 
             cell3.appendChild(enlace);
@@ -92,6 +105,7 @@
         // crea una tabla inicial de 10 elementos
             for (var i = 1; i < 10; i++) {
                 let nuevaFila = tbody.insertRow();
+                nuevaFila.draggable = true;
                 let cell1 = nuevaFila.insertCell (0);
                 let cell2 = nuevaFila.insertCell (1);
                 let cell3 = nuevaFila.insertCell (2);
@@ -132,10 +146,31 @@
              });
             
         };
-
         
-        creaTable();
+        
+        function dropHandler(event) {
+        // Prevent default behavior (Prevent file from being opened)
+            event.preventDefault();
+            console.log("Fila in drop zone");
+            var data = event.dataTransfer.getData("text");
+            console.log(data);
+            document.getElementById('drop_zone').append(data);
+
+           };
+           
+       
+        creaTable(); //con filas dragables
+
+        // para cad fila arranca un listener de drag
           
+        const draggableElement = document.querySelectorAll('tr[draggable="true"]');
+        draggableElement.forEach(element => {
+            element.addEventListener("dragstart", function (event){
+            elementoDisparadorEvento = event.target;
+            event.dataTransfer.setData("text", elementoDisparadorEvento);
+            console.log (event.dataTransfer)
+            });
+        });
         
     
         </SCRIPT>
