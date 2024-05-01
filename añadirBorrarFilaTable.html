@@ -11,12 +11,13 @@
                 .icoDown {font-size: 20px;}
                 td { border: 2px solid red;}
                 table {border:  collapse; }
-                .carpeta {opacity: 0;}
+                .invisible {opacity: 0;}
                 #drop_zone {
                     border: 5px dashed blue;
                     width: 300px;
                     height: 200px;
                     }
+
             </style>  
     </HEAD>
     
@@ -37,6 +38,15 @@
 
         <div id="drop_zone" ondrop="dropHandler(event)" ondragover="event.preventDefault()">
             <p>Drag one or more files to this <i>drop zone</i>.</p>
+            <table id="laTableDrop">
+                <tbody>
+                    <tr> 
+                        <td> id </td>
+                        <td> Nombre </td>
+                    </tr>
+                </tbody>
+            </table>
+
         </div>
 
         <dialog id="wmodal" close>
@@ -53,11 +63,10 @@
            
         <SCRIPT>
 
-    
-
         let laTable= document.getElementById('laTable');
+        let laTableDrop= document.getElementById('laTableDrop');
         let tbody = laTable.getElementsByTagName('tbody')[0];
-
+        let tbodyDrop = laTableDrop.getElementsByTagName('tbody')[0];
         
         function añadeFila() { // codigo Toni
 
@@ -148,30 +157,45 @@
         };
         
         
+    
+        creaTable(); //con filas dragables
+
+        // para cada fila arranca un listener de drag
+          
+        const draggableElement = document.querySelectorAll('tr[draggable="true"]');
+
+        draggableElement.forEach(element => {
+            
+
+            element.addEventListener("dragstart", function (event){
+                elementDisparadorEvento = event.target;
+                const dt = event.dataTransfer;
+                dt.clearData();
+//              dt.setData("application/x-moz-node", elementDisparadorEvento);
+                dt.setData("text", elementDisparadorEvento.innerHTML);
+                
+            });
+
+            
+        });
+
+        const target = document.getElementById("drop_zone");
+        
+        
         function dropHandler(event) {
-        // Prevent default behavior (Prevent file from being opened)
-            event.preventDefault();
-            console.log("Fila in drop zone");
-            var data = event.dataTransfer.getData("text");
-            console.log(data);
-            document.getElementById('drop_zone').append(data);
+        
+            event.preventDefault();// Prevent default behavior (Prevent file from being opened
+            console.log("Row entrando en drop zone");
+//          var nodeFila = event.dataTransfer.getData("application/x-moz-node");
+            var elHTML = event.dataTransfer.getData("text");
+//          console.log(nodeFila);
+            let nuevaFila = tbodyDrop.insertRow();
+            nuevaFila.innerHTML=elHTML;
+
 
            };
            
-       
-        creaTable(); //con filas dragables
-
-        // para cad fila arranca un listener de drag
-          
-        const draggableElement = document.querySelectorAll('tr[draggable="true"]');
-        draggableElement.forEach(element => {
-            element.addEventListener("dragstart", function (event){
-            elementoDisparadorEvento = event.target;
-            event.dataTransfer.setData("text", elementoDisparadorEvento);
-            console.log (event.dataTransfer)
-            });
-        });
-        
+                
     
         </SCRIPT>
       
