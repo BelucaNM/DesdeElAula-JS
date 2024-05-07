@@ -7,15 +7,23 @@
             if (response.ok){ 
                 data = await response.json();
                 console.log(data);
+                document.getElementById("postId").innerHTML= data['id'];
                 document.getElementById("postTitle").innerHTML= data['title'];
                 document.getElementById("postBody").textContent= data['body'];
                 let userId = data ['userId'];
-                let user = fetch_Users (userId);
+                if (i == 1) { // primer acceso; carga el array users}
+                    let user = fetch_Users (userId);
+
+                 }else{
+
+                    let user = userEnArray (userId);
+
+                 }
                 return data;
 
             } else {
                 console.log( "error en buscar post");
-                return "";
+                return "error";
                 
             };
         };
@@ -23,9 +31,9 @@
         async function fetch_Users(userId) {
             response = await fetch('http:/jsonplaceholder.typicode.com/users');
             if (response.ok){ 
-                let data = await response.json();
-                console.log(data);
-                var user = data.find((element) =>  element.id === userId);
+                users = await response.json();
+                console.log(users);
+                var user = users.find((element) =>  element.id === userId);
 
                 document.getElementById("username").innerHTML= user['username'];
                 document.getElementById("name").innerHTML= user['name'];
@@ -34,21 +42,49 @@
 
             } else {
                 console.log( "error en buscar users");
-                return "";
+                return "error";
 
             };
         };
         
-      
-        function fPrevious() {
-            console.log ("Previous Post");
-        }
-        function fNext() {
-            console.log ("Next Post");
+        function userEnArray(userId){
+
+                var user = users.find((element) =>  element.id === userId);
+
+                document.getElementById("username").innerHTML= user['username'];
+                document.getElementById("name").innerHTML= user['name'];
+                document.getElementById("email").innerHTML= user['email'];
+                document.getElementById("company").innerHTML= user['company']['name'];
+        
         };
+        
+        document.addEventListener("DOMContentLoaded", function() {
+        
+        let users=[];
 
-        document.addEventListener("DOMContentLoaded", fetch_Post(1));
+        fetch_Post(1);
 
+        document.getElementById('previous').addEventListener('click',function(e){
+            e.preventDefault();
+            var idPost = document.getElementById("postId").innerHTML;
+            idPost --;
+            if (idPost <=0 ) {
+                console.log ("Estas en el primer registro" );
+            }else{
+                fetch_Post(idPost);
+                console.log ("Previous Post " + idPost );
+            }
+         });
+
+         document.getElementById('next').addEventListener('click',function(e){
+            e.preventDefault();
+            var idPost = document.getElementById("postId").innerHTML;
+            idPost ++;
+            fetch_Post(idPost);
+            console.log ("Next Post" + idPost);
+            
+         });
+        });        
         
         </script>
     </head>
@@ -56,14 +92,15 @@
     <body>
         <div>
             <h3> POST</h3>
-            <p id="postTitle" cols="20" rows="4"></p>
-            <textarea id="postBody" cols="20" rows="4"></textarea>
+            <p id="postId" hidden></p>
+            <p id="postTitle" cols="60" rows="4"></p>
+            <textarea id="postBody" cols="60" rows="4"></textarea>
             <p id="username"></p>
             <p id="name"></p>
             <p id="email"></p>
             <p id="company"></p>
-            <a href ="" id = "previous" value = "Previous" name="Previous"> <b> Pulsa para Anterior </b></a> 
-            <a href ="" id = "next" value = "next" name="next"> <b> Pulsa para siguiente </b> </a>
+            <button  id = "previous" value = "previous" name="previous"> <b> Pulsa para Anterior </b></button> 
+            <button  id = "next" value = "next" name="next"> <b> Pulsa para siguiente </b> </button>
         </div>
     </body>
 </html>
