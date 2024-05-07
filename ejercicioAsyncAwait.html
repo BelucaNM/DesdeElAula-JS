@@ -1,48 +1,69 @@
 <html>
     <head>
         <script>
-        
-        document.addEventListener("DOMContentLoaded", fPrincipal);
-        
-        
-        async function fetch_Posts() {
-            respose = await fetch(jsonplaceholder.typicode.com/posts/i);
-            posts = await response.json();
-            console.log(data);
-        }  ;
-        async function fetch_Users() {
-            respose = await fetch(jsonplaceholder.typicode.com/posts/i);
-            users = await response.json();
-            console.log(data);
-        }  ;
-        
-        function fPrincipal() {
-            posts = fetch_Posts ();
-            posts = fetch_Posts ();
 
+        async function fetch_Post(i) {
+            response = await fetch('http:/jsonplaceholder.typicode.com/posts/'+ i);
+            if (response.ok){ 
+                data = await response.json();
+                console.log(data);
+                document.getElementById("postTitle").innerHTML= data['title'];
+                document.getElementById("postBody").textContent= data['body'];
+                let userId = data ['userId'];
+                let user = fetch_Users (userId);
+                return data;
 
-
-
+            } else {
+                console.log( "error en buscar post");
+                return "";
+                
+            };
         };
+
+        async function fetch_Users(userId) {
+            response = await fetch('http:/jsonplaceholder.typicode.com/users');
+            if (response.ok){ 
+                let data = await response.json();
+                console.log(data);
+                var user = data.find((element) =>  element.id === userId);
+
+                document.getElementById("username").innerHTML= user['username'];
+                document.getElementById("name").innerHTML= user['name'];
+                document.getElementById("email").innerHTML= user['email'];
+                document.getElementById("company").innerHTML= user['company']['name'];
+
+            } else {
+                console.log( "error en buscar users");
+                return "";
+
+            };
+        };
+        
+      
+        function fPrevious() {
+            console.log ("Previous Post");
+        }
+        function fNext() {
+            console.log ("Next Post");
+        };
+
+        document.addEventListener("DOMContentLoaded", fetch_Post(1));
+
+        
         </script>
-
-
-
-
     </head>
+
     <body>
         <div>
             <h3> POST</h3>
-            <textarea cols="20" rows="2"></textarea>
+            <p id="postTitle" cols="20" rows="4"></p>
+            <textarea id="postBody" cols="20" rows="4"></textarea>
             <p id="username"></p>
             <p id="name"></p>
             <p id="email"></p>
             <p id="company"></p>
-            <button id = "previous" value = "Previous"></button>
-            <button id = "next" value = "next"></button>
-
-
+            <a href ="" id = "previous" value = "Previous" name="Previous"> <b> Pulsa para Anterior </b></a> 
+            <a href ="" id = "next" value = "next" name="next"> <b> Pulsa para siguiente </b> </a>
         </div>
-
     </body>
 </html>
