@@ -6,15 +6,18 @@
     <title>Document</title>
 </head>
 <body>
-    function parse_json(){ //peta
+
+    <script>
+    function parse_json(){ // se provoca  error
         // const my_json = "{\"name\":\"Jhon\", \"age\": 30 }";
         let my_json = "{\"name\":\"Jhon\", \"age\": 30";  // con error sintaxis
         let obj = JSON.parse(my_json);
-        return objet["name"];
-    }
+        
+        console.log (obj);
+        return obj["name"];º
     };
 
-    
+/*   
     function parse_json(){ 
 
     try{
@@ -96,11 +99,13 @@
         console.log (name);
     };
         
-        
+*/     
            
 
-
-
+document.addEventListener("DOMcontentLoaded", function(){
+    parse_json();
+});
+</script>
 
         
     
