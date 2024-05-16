@@ -9,51 +9,150 @@
 			label:not(.inline), input:not(.inline), textarea{
 				display: block;
 			}
+			
+            * {font-family: Verdana, Geneva, Tahoma, sans-serif;}
+
+            
 		</style>
 	</head>
 	<body>
 		<form method="GET" action="#" name="miForm">
-				<h2>Formulario de registro</h2>			
-				<label for="lnombre"><strong>Nombre:</strong><input id="lnombre" type="text" name="nombre" maxlength="50" size="50"></label>
-				
-				<label for="lapellido1"><strong>Primer apellido:</strong><input id="lapellido1" type="text" name="apellido1" maxlength="50" size="50"></label>
-				
-				<label for="lapellido2"><strong>Segundo apellido</strong><input id="lapellido2" type="text" name="apellido2" maxlength="50" size="50"></label>
-				
-				<label for="edad"><strong>Edad:</strong><input id="edad" type="text" name="apellido1" maxlength="50" size="50"></label>
-				
-				<label for="ltelefono"><strong>Teléfono:</strong></label><input id="ltelefono" name="telefono" type="text" size="50">
+			<h2>Formulario de registro</h2>			
+			<label for="lnombre"><strong>Nombre:</strong><input id="lnombre" type="text" name="nombre" maxlength="50" size="50"></label>
+			<span id="lnombreError" style="font-size: small; color: #f00;"></span><br>
+			<label for="lapellido1"><strong>Primer apellido:</strong><input id="lapellido1" type="text" name="apellido1" maxlength="50" size="50"></label>
+			<span id="lapellido1Error" style="font-size: small; color: #f00;"></span><br>
+			<label for="lapellido2"><strong>Segundo apellido</strong><input id="lapellido2" type="text" name="apellido2" maxlength="50" size="50"></label>
+			<span id="lapellido2Error" style="font-size: small; color: #f00;"></span><br>
 
-				<label><strong>Género:</strong></label>
-				
-				<label for="idhombre" class="inline">Hombre</label>
-				<input type="radio" id="idhombre" name="sexo" class="inline">
-				
-				<label for="idmujer" class="inline">Mujer</label>
-				<input type="radio" id="idmujer" name="sexo" class="inline">
+			<label for="ledad"><strong>Edad:</strong>
+			<input id="ledad" type="text" name="edad" maxlength="50" size="50"></label>
+			<span id="ledadError" style="font-size: small; color: #f00;"></span><br>
+			<div id = lestado>
+				<label for="jubilado" class="inline">Jubilado</label>
+				<input type="radio" id="jubilado" name="nolabora" class="inline">
+				<label for="trabajador" class="inline">Trabajador o desempleado</label>
+				<input type="radio" id="trabajador" name="labora" class="inline">
+			</div><br>
+			<label for="ltelefono"><strong>Teléfono:</strong></label>
+			<input id="ltelefono" name="telefono" type="text" size="50"></label>
+			<span id="ltelefonoError" style="font-size: small; color: #f00;"></span><br>
+			<label><strong>Género:</strong></label>
+			<label for="hombre" class="inline">Hombre</label>
+			<input type="radio" id="hombre" name="sexo" class="inline">
+			<label for="mujer" class="inline">Mujer</label>
+			<input type="radio" id="mujer" name="sexo" class="inline">
+			<span id="lsexoError" style="font-size: small; color: #f00;"></span><br>
 
-				<label for="lsel"><strong>Población: </strong></label><select id="lsel" name="poblacion">
-				<option value="">---------</option>
-				<option value="Alicante" >Alicante</option>
-				<option value="Madrid" >Madrid</option>
-				<option value="Sevilla" >Sevilla</option>
-				<option value="Valencia" >Valencia</option>
-				</select>
+			<label for="lsel"><strong>Población: </strong></label>
+			<select id="lsel" name="poblacion">
+			<option value="">---------</option>
+			<option value="Alicante" >Alicante</option>
+			<option value="Madrid" >Madrid</option>
+			<option value="Sevilla" >Sevilla</option>
+			<option value="Valencia" >Valencia</option>
+			</select>
+			<br><span id="lselError" style="font-size: small; color: #f00;"></span>
 				
-				<label><strong>Comentarios:</strong></label><textarea name="comentarios" rows="10" cols="50">Tus comentarios aquí...
-			</textarea>
+			<label><strong>Comentarios:</strong></label>
+			<textarea name="comentarios" rows="10" cols="50">Tus comentarios aquí...</textarea>
 				
-				<input id="lpublicidad" type="checkbox" name="publicidad" class="inline"><label for="lpublicidad" class="inline">Deseo recibir información sobre
+			<input id="lpublicidad" type="checkbox" name="publicidad" class="inline"><label for="lpublicidad" class="inline">Deseo recibir información sobre
 novedades y ofertas.</label>
 <br>
-			 	<input id="laceptar" type="checkbox" name="aceptar" class="inline"><label for="laceptar" class="inline">Declaro haber leido y aceptar las
+			<input id="laceptar" type="checkbox" name="aceptar" class="inline"><label for="laceptar" class="inline">Declaro haber leido y aceptar las
 condiciones generales del programa y la normativa sobre protección de
 datos. </label>
+			<br><span id="laceptarError" style="font-size: small; color: #f00;"></span>
 				
-				<input type="submit" name="envio" value="Enviar">
+			<input type="submit" name="envio" value="Enviar">
+		</form>
 
+	<script>
+
+		function fesVacio(str){
+			let etiqueta = document.getElementById(str).value.trim(); //quitamos espacios blancos delante y detras
+			strError = str +"Error";
+			console.log(strError);
+			let etiquetaError = document.getElementById(strError)
+            if(etiqueta.length==0){ // obligatorio
+                etiquetaError.innerHTML = "El campo es obligatorio"
+                return true
+            }else{
+                etiquetaError.innerHTML =""
+				return false
+            };
+		};
+
+
+		miForm.addEventListener('submit', ()=>{
+            
+			let patternTelefono = /^\d{3}-\d{3}-\d{3}$/;
+
+            //interrumpe el funcionamiento del evento que lo envoca en este caso es el submit, por lo tanto para el envio del formulario
+            event.preventDefault()
+
+            // nombre
+			let error= false ;
+			error = fesVacio ("lnombre");
+			error = fesVacio ("lapellido1");
+			error = fesVacio ("lapellido2");
+
+			//edad
+			error = fesVacio ("ledad");
+
+			let ledad = document.getElementById("ledad").value
+			const lestado = document.getElementById('lestado');
+			const lestadoError = document.getElementById('lestadoError');
+
+			if (ledad<18 || ledad>65){
+			// muestra modal
+										
+			};
+
+			// Telefono
+			error = fesVacio ("ltelefono");
+			let ltelefono = document.getElementById("ltelefono").value.trim();
+			if (!patternTelefono.test(ltelefono)){
+                    error = true;
+                    ltelefonoError.innerHTML = " Introduzca un telefono en formato 999-999-999"
+            } else {
+					ltelefonoError.innerHTML =""
+            };
+
+			console.log (document.querySelector('input[name="sexo"]:checked'))
+			if (document.querySelector('input[name="sexo"]:checked') == null){
+					error = true;
+                    lsexoError.innerHTML = " Indique sexo"
+            }else {
+					lsexoError.innerHTML =""
+            };
+
+			console.log (document.querySelector('input[name="poblacion"]:checked'))
+			if (document.querySelector('input[name="poblacion"]:checked') == null){
+					error = true;
+                    lselError.innerHTML = " Indique poblacion"
+            }else {
+					lselError.innerHTML =""
+            };
 			
 
+					
+			let laceptar = document.getElementById("laceptar");
+			let laceptarError = document.getElementById("laceptarError")
+            if (!laceptar.checked) { 
+                laceptarError.innerHTML = "Debe aceptar las condiciones de uso"
+                error = true
+			}else {
+				laceptarError.innerHTML =""
+            }
 
+                     
+            //Si no hay ningun error enviar el formulario
+            if(!error) miForm.submit()
+                
+        });
+
+	</script>		
 	</body>
 </html>

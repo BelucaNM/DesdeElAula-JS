@@ -8,36 +8,38 @@
 <body>
 
     <script>
+
+/*
     function parse_json(){ // se provoca  error
-        // const my_json = "{\"name\":\"Jhon\", \"age\": 30 }";
-        let my_json = "{\"name\":\"Jhon\", \"age\": 30";  // con error sintaxis
+        // const my_json = '{\"name\":\"Jhon\", \"age\": 30 }';
+        let my_json = '{\"name\":\"Jhon\", \"age\": 30"; ' // con error sintaxis; falta unallave
         let obj = JSON.parse(my_json);
         
         console.log (obj);
-        return obj["name"];º
+        return obj["name"];
     };
+//   VM36:1 Uncaught SyntaxError: Expected ',' or '}' after property value in JSON at position 25 (line 1 column 26)
 
-/*   
+   
     function parse_json(){ 
 
     try{
-        let my_json = "{\"name\":\"Jhon\", \"age\": 30";  // con error sintaxis
+        let my_json = '{\"name\":\"Jhon\", \"age\": 30; ' // con error sintaxis
         let obj = JSON.parse(my_json);
         return objet["name"];
-
-    }catch (error) {
+    }
+        
+    catch (error) {
        
         console.log ("error:" + error);
+        //error:SyntaxError: Expected ',' or '}' after property value in JSON at position 25 (line 1 column 26)
         return "anonimo";
-    }}
-
-   
-    };
+    }};
 
 
     function parse_json(){  // posicion de la variable my_json en padre
         
-        let my_json = "{\"name\":\"Jhon\", \"age\": 30";  // con error sintaxis
+        let my_json = '{\"name\":\"Jhon\", \"age\": 30';  // con error sintaxis
 
         try{
             
@@ -46,36 +48,42 @@
     
         } catch (error) {
             try{
-                let other_json = JSON.parse(my_json) + "}";
+                let other_json = my_json + '}';
                 let obj = JSON.parse(other_json);
+
+                console.log (obj);
                 return objet["name"];
-            } catch (error) {
+            } 
+            catch (error) {
                 console.log ("error:" + error);
                 return "anonimo";
             }
             }
-        }};
-
+        };
+    //    age: 30name: "Jhon"[[Prototype]]: Object
+    //  exampleErrores.html:61 error:ReferenceError: objet is not defined
+    
     
     function parse_json(){  // 
-        let my_json = "{\"name\":\"Jhon\", \"age\": 30}";  
+        let my_json = '{\"name\":\"Jhon\", \"age\": 30}';  
         let obj = JSON.parse(my_json);
-        return objet["name"];
+        return obj["name"];
         }
     
-    funtion procesar_json() {
-        console.log ("El usuario es:"");
-        let name;
+    function procesar_json() {
+        console.log ("El usuario es:");
+        let name; // la variable esta en el padre para que pueda ser vista por try y por catch
         try{
             name = parse_json();
-        } catch (error) {
+        } 
+        catch (error) {
             console.log ("error:" + error);
             name= "anonimo";
         }
-        console.log (name);
+            console.log (name);
         }
         
-        
+*/       
     function parse_json(){  // 
 
             
@@ -85,29 +93,26 @@
         }
             
     function procesar_json() {
-        console.log ("El usuario es:"");
+        console.log ("El usuario es:");
         let name;
         try{
-            bd=grt_bd_connection();
+            db=get_db_connection();
+            console.log ("db: " + db);
             name = parse_json();
         }catch (error) {
             console.log ("error:" + error);
             name= "anonimo";
         } finally {
-            close_db(bd);
+            db=get_db_closed();
+            console.log ("db: " + db);
         }
         console.log (name);
+
     };
-        
-*/     
-           
-
-document.addEventListener("DOMcontentLoaded", function(){
-    parse_json();
-});
-</script>
-
-        
-    
+    function get_db_connection() { return 1;}
+    function get_db_closed() { return 0;}
+    // parse_json();
+    procesar_json();
+</script>    
 </body>
 </html>
