@@ -1,0 +1,33 @@
+<html>
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
+    <script defer> // se ejecuta despues de cargar el HTML 
+    
+    dayjs().format()
+
+    function check_date(){ // hacer año/mes¨dia para ver mayoria edad
+            var today =newDate();
+            var birthday = document.getElementById("date").value;
+            birthday = newDate(birthday);
+            birthday.diff(today) // en milisegundos
+        }
+
+    function check_date2(){ // hacer libreria day.js para ver mayoria edad
+            var today =newDate();
+            var birthday = document.getElementById("date").value;
+            birthday = newDate(birthday)
+            
+        }
+
+    document.addEventListener("DOMcontentLoaded", function(){
+        check_date();
+        check_date2();
+});
+
+
+    </Script>
+    <body>
+        <input type="date" id="date" name="date" oninput="javascript:check_date();">
+    </body>
+</head>
+</html>

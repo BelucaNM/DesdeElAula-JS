@@ -75,14 +75,16 @@
         let patternEmail=/^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
         let fdescripcion25 ="";
 
-        function countDigits( str ) {
-            var acu = 0;
-            Array.prototype.forEach.call( str, function( val ) {
-                acu += ( val.charCodeAt( 0 ) > 47 ) && ( val.charCodeAt( 0 ) < 58 ) ? 1 : 0;
+
+        function countDigits(str) {
+            var count = 0;
+            Array.forEach(str,function(val) {
+                if((val.charCodeAt(0)>47) && (val.charCodeAt(0)<58)) {
+                    count += 1;
+                }            
             });
             return acu;
-            }
-
+        }
 
         miForm.addEventListener('submit', ()=>{
             let error= false

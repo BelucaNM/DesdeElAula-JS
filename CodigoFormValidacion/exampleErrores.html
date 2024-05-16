@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    function parse_json(){ //peta
+        // const my_json = "{\"name\":\"Jhon\", \"age\": 30 }";
+        let my_json = "{\"name\":\"Jhon\", \"age\": 30";  // con error sintaxis
+        let obj = JSON.parse(my_json);
+        return objet["name"];
+    }
+    };
+
+    
+    function parse_json(){ 
+
+    try{
+        let my_json = "{\"name\":\"Jhon\", \"age\": 30";  // con error sintaxis
+        let obj = JSON.parse(my_json);
+        return objet["name"];
+
+    }catch (error) {
+       
+        console.log ("error:" + error);
+        return "anonimo";
+    }}
+
+   
+    };
+
+
+    function parse_json(){  // posicion de la variable my_json en padre
+        
+        let my_json = "{\"name\":\"Jhon\", \"age\": 30";  // con error sintaxis
+
+        try{
+            
+            let obj = JSON.parse(my_json);
+            return objet["name"];
+    
+        } catch (error) {
+            try{
+                let other_json = JSON.parse(my_json) + "}";
+                let obj = JSON.parse(other_json);
+                return objet["name"];
+            } catch (error) {
+                console.log ("error:" + error);
+                return "anonimo";
+            }
+            }
+        }};
+
+    
+    function parse_json(){  // 
+        let my_json = "{\"name\":\"Jhon\", \"age\": 30}";  
+        let obj = JSON.parse(my_json);
+        return objet["name"];
+        }
+    
+    funtion procesar_json() {
+        console.log ("El usuario es:"");
+        let name;
+        try{
+            name = parse_json();
+        } catch (error) {
+            console.log ("error:" + error);
+            name= "anonimo";
+        }
+        console.log (name);
+        }
+        
+        
+    function parse_json(){  // 
+
+            
+        let my_json = "{\"name\":\"Jhon\", \"age\": 30}";  
+        let obj = JSON.parse(my_json);
+        return objet["name"];
+        }
+            
+    function procesar_json() {
+        console.log ("El usuario es:"");
+        let name;
+        try{
+            bd=grt_bd_connection();
+            name = parse_json();
+        }catch (error) {
+            console.log ("error:" + error);
+            name= "anonimo";
+        } finally {
+            close_db(bd);
+        }
+        console.log (name);
+    };
+        
+        
+           
+
+
+
+
+        
+    
+</body>
+</html>
