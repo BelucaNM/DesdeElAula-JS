@@ -131,6 +131,5 @@ function escriureTaula(products) {
 */
 
 function obrirNovaFinestra() {
-    window.open("https://www.google.com",
-            "", "width=300, height=300");
+    window.open("https://www.google.com","", "width=300, height=300");
 }

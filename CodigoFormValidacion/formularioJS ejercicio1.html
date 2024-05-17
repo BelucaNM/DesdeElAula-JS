@@ -39,17 +39,17 @@
             <br><div>
             <div>
                 <input type="radio" id="fespañol" name="fnacion" value="español" checked />
-                <label for="español">Español</label>
+                <label for="fespañol">Español</label>
               </div>
             
               <div>
                 <input type="radio" id="fresidente" name="fnacion" value="residente" />
-                <label for="residente">Residente UE</label>
+                <label for="fresidente">Residente UE</label>
               </div>
             
               <div>
                 <input type="radio" id="fnoResidente" name="fnacion" value="noResidente" />
-                <label for="noResidente">No residente</label>
+                <label for="fnoResidente">No residente</label>
               </div>
             </div>
            
@@ -78,12 +78,13 @@
 
         function countDigits(str) {
             var count = 0;
-            Array.forEach(str,function(val) {
+            let array = str.split('');
+            array.forEach(function(val) {
                 if((val.charCodeAt(0)>47) && (val.charCodeAt(0)<58)) {
                     count += 1;
                 }            
             });
-            return acu;
+            return count;
         }
 
         miForm.addEventListener('submit', ()=>{
@@ -138,7 +139,10 @@
 
             if (!unCampoConNumero) {
                 fnombreError.innerHTML ="Ninguno de los tres campos anteriores tienen un número"
-                error = true}
+                error = true
+            } else {
+                fnombreError.innerHTML ="";
+            };
             
             
             // FDNI

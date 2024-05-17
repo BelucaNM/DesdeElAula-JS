@@ -9,17 +9,16 @@
         <script>
             let products = [];
 
-
             document.addEventListener("DOMContentLoaded", function() {
-              products = getProducts();
-              escriureTaula(products);
+            products = getProducts();
+            escriureTaula(products);
             })
         </script>
     </head>
     <body>
-        <img width="200px" src="//www.sarti.webs.upc.edu/moodle/pluginfile.php/1/theme_klass/logo/1515671862/Logo%20Sarti%20blanc2.svg" alt="Formació Sarti">
+<!-- >  <img width="200px" src="//www.sarti.webs.upc.edu/moodle/pluginfile.php/1/theme_klass/logo/1515671862/Logo%20Sarti%20blanc2.svg" alt="Formació Sarti">
         <img width="200px" src="https://www.sarti.webs.upc.edu/web_v2/assets/onepage/img/logo/upc.png" alt="Formació Sarti">
-        
+<-->       
         
         <form id="login" method="POST" action="/login.php">            
             <p>username: <input type="text" name="name">
@@ -28,8 +27,7 @@
         </form>
 
         <hr>
-
-                
+              
         <form id="registre" method="POST" action="/registre.php">            
             <p>username *: <input type="text" name="name">
             <p>paraula de pas *: <input type="password" name="password1">
@@ -53,13 +51,12 @@
 
             <p><input type="checkbox" name="politiques">Acceptes les polítiques</p> 
     
-                <p><input type="submit" name="enviar" value="enviar"></p>
+            <p><input type="submit" name="enviar" value="enviar"></p>
         </form>
 
-        <hr>
+        <hr> <!-- > Linea  <-->
 
-
-            <form id="altaProducte" method="POST" action="/afegeixProducte.php">
+        <form id="altaProducte" method="POST" action="/afegeixProducte.php">
                 <input type="hidden" name="id" value="-1">
                 <input type="hidden" name="operacio" value="add">
                 <!--input type="hidden" name="operacio" value="update"-->
@@ -73,14 +70,12 @@
                 <p>Preu: <input type="number" name="price">
                 <p><input type="submit" name="enviar" value="enviar"></p>
 
-            </form>
-            <hr>
-            <p><a href="#" onclick="javascript:ordenaPerNom()">[Ordena Nom]</a>&nbsp;<a href="#"  onclick="javascript:ordenaPerCategoria()">[Ordena per Categoria]</a>&nbsp;<a href="#"  onclick="javascript:ordenaPerPreu()">[Ordena per preu]</a>
-                <p><a href="#"  onclick="javascript:filtraPer('')">[Tots]</a><a href="#"  onclick="javascript:filtraPer('peixos')">[Filtra per Peixos]</a>&nbsp;<a href="#"  onclick="javascript:filtraPer('carns')">[Filtra per carns]</a>&nbsp;<a href="#"  onclick="javascript:filtraPer('fruites')">[Filtra per fruites]</a>
-            <br><br>
-            <table id="tauladeProductes" border="1"></table>
-
-       
+        </form>
+        <hr>
+        <p><a href="#" onclick="javascript:ordenaPerNom()">[Ordena Nom]</a>&nbsp;<a href="#"  onclick="javascript:ordenaPerCategoria()">[Ordena per Categoria]</a>&nbsp;<a href="#"  onclick="javascript:ordenaPerPreu()">[Ordena per preu]</a>
+        <p><a href="#"  onclick="javascript:filtraPer('')">[Tots]</a><a href="#"  onclick="javascript:filtraPer('peixos')">[Filtra per Peixos]</a>&nbsp;<a href="#"  onclick="javascript:filtraPer('carns')">[Filtra per carns]</a>&nbsp;<a href="#"  onclick="javascript:filtraPer('fruites')">[Filtra per fruites]</a>
+        <br><br>
+        <table id="tauladeProductes" border="1"></table>
             <a href="#" onclick="javascript:obrirNovaFinestra()">Obrir nova finestra!!!</a>
             <a href="#" onclick="javascript:introspeccio()">Introspecció</a>
             <a href="#" onclick="javascript:clearIntrospeccio()">Netejar</a>

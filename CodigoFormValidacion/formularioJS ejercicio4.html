@@ -60,7 +60,7 @@
                 return true
             }else{
                 if (pattern != null) {
-                    if (!pattern.test(str)){
+                    if (!patternEmail.test(str)){
                         error = true;
                         etiquetaError.innerHTML = "El input no es valido"
                         return true
