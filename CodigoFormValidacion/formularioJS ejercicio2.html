@@ -24,16 +24,11 @@
 			<span id="lapellido1Error" style="font-size: small; color: #f00;"></span><br>
 			<label for="lapellido2"><strong>Segundo apellido</strong><input id="lapellido2" type="text" name="apellido2" maxlength="50" size="50"></label>
 			<span id="lapellido2Error" style="font-size: small; color: #f00;"></span><br>
-
-			<label for="ledad"><strong>Edad:</strong>
-			<input id="ledad" type="text" name="edad" maxlength="50" size="50"></label>
-			<span id="ledadError" style="font-size: small; color: #f00;"></span><br>
-			<div id = lestado>
-				<label for="jubilado" class="inline">Jubilado</label>
-				<input type="radio" id="jubilado" name="nolabora" class="inline">
-				<label for="trabajador" class="inline">Trabajador o desempleado</label>
-				<input type="radio" id="trabajador" name="labora" class="inline">
-			</div><br>
+			<div id = "laEdad">
+				<label for="ledad"><strong>Edad:</strong>
+				<input id="ledad" type="text" name="edad" maxlength="50" size="50"></label>
+			</div>
+			<span id="ledadError" style="font-size: small; color: #f00;"></span>
 			<label for="ltelefono"><strong>Teléfono:</strong></label>
 			<input id="ltelefono" name="telefono" type="text" size="50"></label>
 			<span id="ltelefonoError" style="font-size: small; color: #f00;"></span><br>
@@ -63,7 +58,7 @@ novedades y ofertas.</label>
 			<input id="laceptar" type="checkbox" name="aceptar" class="inline"><label for="laceptar" class="inline">Declaro haber leido y aceptar las
 condiciones generales del programa y la normativa sobre protección de
 datos. </label>
-			<br><span id="laceptarError" style="font-size: small; color: #f00;"></span>
+			<br><span id="laceptarError" style="font-size: small; color: red;"></span>
 				
 			<input type="submit" name="envio" value="Enviar">
 		</form>
@@ -89,6 +84,9 @@ datos. </label>
             
 			let patternTelefono = /^\d{3}-\d{3}-\d{3}$/;
 
+			// inicializar variables
+			
+
             //interrumpe el funcionamiento del evento que lo envoca en este caso es el submit, por lo tanto para el envio del formulario
             event.preventDefault()
 
@@ -100,15 +98,39 @@ datos. </label>
 
 			//edad
 			error = fesVacio ("ledad");
+			
 
 			let ledad = document.getElementById("ledad").value
-			const lestado = document.getElementById('lestado');
-			const lestadoError = document.getElementById('lestadoError');
+			const ledadError = document.getElementById('ledadError');
+			
+			if (document.getElementById("unSpan")){ unSpan.remove();};
+			
 
-			if (ledad<18 || ledad>65){
-			// muestra modal
+			if (isNaN(parseInt(ledad))){
+				error = true;
+                ledadError.innerHTML = " La edad debe ser un entero  ";
+			} else {
+				if (ledad<18 || ledad>65){
+					error = true;
+                	ledadError.innerHTML = " La edad debe ser un entero entre 18 y 65 "
+				} 
+					
+				unSpan = document.createElement("span");
+				unSpan.id = "unSpan";
+				unSpan.style='font-size: small; color: blue;';
+            		
+				if ((ledad>=18) && (ledad<=65)){
+						unSpan.innerHTML = "Debes estar trabajando o en paro ";}
+				if (ledad>65) {
+						unSpan.innerHTML = "Deberías estar Jubilado ";	}
+				if (ledad<18) {
+						unSpan.innerHTML = "Que haces en esta página?!! ";	}
+				
+				document.getElementById("laEdad").appendChild(unSpan);
+				 
+			};		
 										
-			};
+			
 
 			// Telefono
 			error = fesVacio ("ltelefono");
