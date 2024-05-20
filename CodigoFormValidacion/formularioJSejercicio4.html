@@ -149,8 +149,7 @@
         function existeEmail () {
             let elEmail = document.getElementById("femail").value.trim();
             // users se han recogido al arrancar el programa 
-            
-            console.log(users);           
+                     
             let user = users.find((element) =>  element.email === elEmail);
             console.log(user);
             if (user !== undefined) { // hay un usuario que cumple la condicion
@@ -181,11 +180,12 @@
                 event.preventDefault();
 
                 // validaciones
-                let hayerror= false ;
-                hayError = fvalido ("fusername",null);
+                let hayError= false ;
+                
                 hayError = fvalido ("femail",patternEmail); 
-
-                hayError = existeEmail(); // comprueba si el email existe en BD
+                // comprueba si el email existe en BD solo si ha pasado la validacion de formato 
+                if (!hayError) { hayError = existeEmail();}; 
+                hayError = fvalido ("fusername",null);
 
                 let laprovincia = document.getElementById('fprovincia').selectedOptions[0].innerText;
                 console.log (laprovincia);
