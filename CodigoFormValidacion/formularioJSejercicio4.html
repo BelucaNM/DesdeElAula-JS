@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta HTTP-EQUIV="Expires" CONTENT="no-cache">
+		<meta charset="UTF-8">
+		<meta name="description" content="Formulario">
+		<title>Formulario4 Login con comprobacion por fetch si email exist</title>
+		<style>
+			label:not(.inline), input:not(.inline), textarea{
+				display: block;
+			}
+            * {font-family: Verdana, Geneva, Tahoma, sans-serif;}
+		</style>
+        
+        <script>
+//       const patternEmail=/^\w+([.-_+]?\w+)*@\w+([.-]?\w+)*(\.\w{2,10})+$/;
+        const patternEmail=/^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+        var users=[];
+        users = fetch_users();
+
+        function fvalido(elId, pattern){
+			let valor = document.getElementById(elId).value.trim(); //quitamos espacios blancos delante y detras
+			let strIdError = elId +"Error";
+			console.log(strIdError);
+			let elIdError = document.getElementById(strIdError)
+            if(valor.length==0){ // obligatorio
+                elIdError.innerHTML = "El campo es obligatorio";
+                return true;
+            }else{
+                if (pattern != null) {
+                    
+                    if (!pattern.test(valor)){
+                        elIdError.innerHTML = "El input no es valido";
+                        return true;
+                    }else{
+                        elIdError.innerHTML ="";
+				        return false;
+                        
+                    };   
+                    
+                }else{
+                    elIdError.innerHTML ="";
+				    return false;
+                };
+            };
+		};
+        
+        function fetch_municipios(laProvincia) {
+
+            // Borra las opciones previas del desplegable
+            document.getElementById("fpoblacion").options.length = 0; 
+            // añade la primera linea de las opciones
+            let option = document.createElement ("option");
+            option.value = ""; //Es la primera opcion que no es valida
+            option.text = "---------"; //
+            document.getElementById("fpoblacion").appendChild(option);
+
+          
+            let municipios =[
+                {"id" : 1, "name" : "Sitges","provincia":"Barcelona"},
+                {"id" : 2, "name" : "Vilafranca","provincia":"Barcelona"},
+                {"id" : 3, "name" : "Barcelona","provincia":"Barcelona"},
+                {"id" : 4, "name" : "Olivella","provincia":"Barcelona"},
+                {"id" : 5, "name" : "SantPereDeRibes","provincia":"Barcelona"},
+                {"id" : 6, "name" : "Agullana","provincia":"Girona"},
+                {"id" : 7, "name" : "Aiguaviva","provincia":"Girona"},
+                {"id" : 8, "name" : "Alp","provincia":"Girona"},
+                {"id" : 9, "name" : "Amer","provincia":"Girona"},
+                {"id" : 10, "name" : "Arbucias","provincia":"Girona"},
+                {"id" : 11, "name" : "Argelaguer","provincia":"Girona"},
+                {"id" : 12, "name" : "Tavascan","provincia":"LLeida"},
+                {"id" : 13, "name" : "Balaguer","provincia":"LLeida"},
+                {"id" : 14, "name" : "Algerri","provincia":"LLeida"},
+                {"id" : 15, "name" : "Altafulla","provincia":"Tarragona"},
+                {"id" : 16, "name" : "La Canonja","provincia":"Tarragona"},
+                {"id" : 17, "name" : "El Catllar","provincia":"Tarragona"},
+                {"id" : 18, "name" : "Constantí","provincia":"Tarragona"},
+            ];
+            console.log(laProvincia);
+
+            municipios.forEach(municipio => {
+                if (municipio ["provincia"] == laProvincia ) {
+                    console.log ("municipio es ", municipio);
+                    let option = document.createElement ("option");
+                    option.value = municipio.id; //elem.id
+                    option.text = municipio.name; //elem.id
+                    document.getElementById("fpoblacion").appendChild(option);
+                }; 
+            });
+
+        };
+
+        async function fetch_municipios_a(laProvincia) { // no se usa
+
+            // Borra las opciones previas del desplegable
+            document.getElementById("fpoblacion").options.length = 0; 
+            // añade la primera linea de las opciones
+            let option = document.createElement ("option");
+            option.value = ""; //Es la primera opcion que no es valida
+            option.text = "---------"; //
+            document.getElementById("fpoblacion").appendChild(option);
+
+            let municipios = [];            
+            console.log(laProvincia);
+            
+            response = await fetch('llistatMunicipios-data.txt');
+            if (response.ok){ 
+                municipios = await response.txt();
+                console.log(municipios);
+//              var municipiosP = municipios.find((element) =>  element.provincia === laProvincia);
+                
+                municipios.forEach(municipio => {
+                    if (municipio ["provincia"] == laProvincia ) {
+                            console.log ("municipio es ", municipio);
+                            let option = document.createElement ("option");
+                            option.value = municipio.id; //elem.id
+                            option.text = municipio.name; //elem.id
+                            document.getElementById("fpoblacion").appendChild(option);
+                    }; 
+                });
+
+            } else {
+                console.log( "error en buscar municipios");
+                return "error";
+            };
+
+        };
+
+        async function fetch_users () {
+            try{
+                let response = await fetch('http:/jsonplaceholder.typicode.com/users');
+                if (response.ok){ 
+                    let users = await response.json();
+                    return users;
+                } else {
+            // Manejar errores de respuesta HTTP (ej. 404, 500)
+                throw new Error('Error en la solicitud: ' + respuesta.status);
+                };
+            } catch (error) {
+                    // Manejar errores de red
+                    console.error('Hubo un problema con la operación fetch: ' + error.message);
+            };
+        };
+
+
+        function existeEmail () {
+            let elEmail = document.getElementById("femail").value.trim();
+            // users se han recogido al arrancar el programa 
+            console.log(users);           
+            let user = users.find((element) =>  element.email === elEmail);
+            console.log(user);
+            if (user !== undefined) { // hay un usuario que cumple la condicion
+                document.getElementById("femailError").innerHTML = "El email ya existe";
+                return true;
+            } else {
+                document.getElementById("femailError").innerHTML = "";
+                return false;
+            };
+            
+        };
+
+        document.addEventListener("DOMContentLoaded", function() {
+
+            
+
+            fprovincia.addEventListener('change',function(e){
+                //interrumpe el funcionamiento del evento que lo envoca en este caso es el submit, por lo tanto para el envio del formulario
+                e.preventDefault();
+                
+                var laProvincia = fprovincia.selectedOptions[0].innerText;
+                console.log(laProvincia);
+                fetch_municipios(laProvincia);
+                
+            });
+
+            miForm.addEventListener('submit', ()=>{
+                //interrumpe el funcionamiento del evento que lo envoca en este caso es el submit, por lo tanto para el envio del formulario
+                event.preventDefault();
+
+                // validaciones
+                let hayerror= false ;
+                hayError = fvalido ("fusername",null);
+                hayError = fvalido ("femail",patternEmail); 
+
+                hayError = existeEmail(); // comprueba si el email existe en BD
+
+                let laprovincia = document.getElementById('fprovincia').selectedOptions[0].innerText;
+                console.log (laprovincia);
+			    if ((laprovincia === null) || (laprovincia === "---------")){
+					hayError = true;
+                    fprovinciaError.innerHTML = " Seleccione provincia";
+                }else {
+                    fprovinciaError.innerHTML ="";
+                };
+
+            
+			    let lapoblacion = document.getElementById('fpoblacion').selectedOptions[0].innerText;
+                console.log (lapoblacion);
+			    if ((lapoblacion === null) || (lapoblacion === "---------")) {
+					hayError = true;
+                    fpoblacionError.innerHTML = " Seleccione poblacion";
+                }else {
+                    fpoblacionError.innerHTML ="";
+                };        
+                
+                    
+                //Si no hay ningun error enviar el formulario
+                if(!hayError) miForm.submit();
+                
+            });
+
+            
+        });
+
+    </script>
+    </head>
+	
+    <body>
+		<form method="get" action="#" name="miForm">
+			<h2>Formulario de registro</h2>			
+			<label for="fusername"><strong>Username:</strong>
+            <input id="fusername" type="text" name="fusername" maxlength="50" size="50" placeholder="Introducir username"></label>
+			<span id="fusernameError" style="font-size: small; color: #f00;"></span><br>
+			
+			<label for="fprovincia"><strong>Provincia: </strong></label>
+            <select id="fprovincia" name="fprovincia" >
+			<option value="">---------</option>
+			<option value="1" >Barcelona</option>
+			<option value="2" >Tarragona</option>
+            <option value="3" >LLeida</option>
+			<option value="4" >Girona</option>
+			</select>
+			<br><span id="fprovinciaError" style="font-size: small; color: #f00;"></span>
+				
+			<label for="fpoblacion"><strong>Población: </strong></label>
+			<select id="fpoblacion" name="fpoblacion">
+			<option value="">---------</option>
+			</select>
+			<br><span id="fpoblacionError" style="font-size: small; color: #f00;"></span>				
+			
+            <label for="femail"> email:</label>
+            <input type="text"  id="femail"  name="femail"  placeholder="Introducir email">
+            <span id="femailError" style="font-size: small; color: #f00;"></span>
+            <input type="submit" name="envio" value="OK">
+		</form>
+	</body>
+</html>
