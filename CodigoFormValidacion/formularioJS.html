@@ -1,125 +1,132 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <meta charset="UTF-8">
         <Title > Formulario JS se lanza un escucha sobre un input 
-            de manera que si se detecta una entrada se hace una validacion y se pueden personalizar los mensajes</Title>
+            de manera que si se detecta una entrada se hace una validacion 
+            y se pueden personalizar los mensajes. Rutina para contar/limitar  
+            el numero de caracteres de entrada en un campo textArea</Title>
+            <style>
+                * {font-family: Verdana, Geneva, Tahoma, sans-serif;}
 
+            </style>
     </head>
     <body>
-        <form name="miForm" method="get">
+        <form id="miForm" name="miForm" method="get">
             <label> Nombre:</label>
-            <input type="text" id="fname" name="fname" placeholder="introducir nombre">
+            <br><input type="text" id="fname" name="fname" size = 30 placeholder="introducir nombre">
             <br><span id="fnameError" style="font-size: small; color: #f00;"></span>
             <br><label> Fecha de Nacimiento:</label>
-            <input type="date" id = "fdate" name="fdate"  placeholder="introducir fecha nacimiento">
+            <br><input type="date" id = "fdate" name="fdate" size = 30  placeholder="introducir fecha nacimiento">
             <br><span id="fdateError" style="font-size: small; color: #f00;"></span>
             <br><label> Descripcion:</label>
-            <textarea  id="fdescripcion" name="fdescripcion"  placeholder="introducir descripcion"></textarea>
-            <span id="fcontador" style="font-size: small; color: #f00;"></span>
+            <br><textarea  id="fdescripcion" name="fdescripcion" rows="4" cols="50" placeholder="introducir descripcion"></textarea>
+            <br><span id="fcontador" style="font-size: small; color: #f00;"></span>
             <br><span id="fdescripcionError" style="font-size: small; color: #f00;"></span>
             <br><input type="submit" name="OK" value="OK">
 <!-- >            <button> Enviar </button> Es equivalente al input submit<-->
 
         </form>
-        <script>
+    <script>
+
+    document.addEventListener("DOMContentLoaded", function() {
         let onlyLetters = /^[A-Za-z]+$/;
         let formatoFecha= /^([0-2][0-9]|(3)[0-1])(\/)(((0)[0-9])|((1)[0-2]))(\/)\d{4}$/;
         let fdescripcion25 ="";
 
-        miForm.addEventListener('submit', ()=>{
-            let error= false
+        document.getElementById("miForm").addEventListener('submit', (event)=>{
+            let error= false;
 
             //interrumpe el funcionamiento del evento que lo envoca en este caso es el submit, por lo tanto para el envio del formulario
-            event.preventDefault()
+            event.preventDefault();
 
             // FNAME
             // con la funcion trim quitamos los espacios en blanco de delante y detras para evitar que el usuario intodzca solo espacios en blanco
-            let fname = document.getElementById("fname").value.trim()
+            let fname = document.getElementById("fname").value.trim();
             //accedo al elemento span nombreError
-            let fnameError = document.getElementById("fnameError")
+            let fnameError = document.getElementById("fnameError");
 
             // validacion fname
             if(fname.length==0){ // obligatorio
-                fnameError.innerHTML = "El campo nombre es obligatorio"
-                error = true
+                fnameError.innerHTML = "El campo nombre es obligatorio";
+                error = true;
             }else if (!(onlyLetters.test(fname))){ // formato
-                fnameError.innerHTML = "El campo solo permite letras"
-                error = true
+                fnameError.innerHTML = "El campo solo permite letras";
+                error = true;
             }else{
-                fnameError.innerHTML =""
-            }
+                fnameError.innerHTML ="";
+            };
             
             
             // FDATE
-            let fdate = document.getElementById("fdate").value
+            let fdate = document.getElementById("fdate").value;
             //accedo al elemento span edadError
-            let fdateError = document.getElementById("fdateError")
+            let fdateError = document.getElementById("fdateError");
             if(fdate.length==0){ // obligatorio
-                fdateError.innerHTML = "La fecha es obligatoria"
-                error = true
+                fdateError.innerHTML = "La fecha es obligatoria";
+                error = true;
             }else if (!(formatoFecha.test(fdate))){ 
                 /* formato revisar
                 fdateError.innerHTML = "Formato de fecha incorrecto"
                 error = true */
             }else{
-                fdateError.innerHTML =""
-            }
+                fdateError.innerHTML ="";
+            };
 
             //fDESCRIPCION
             let fdescripcion = document.getElementById("fdescripcion").value.trim()
             //accedo al elemento span edadError
             let fdescripcionError = document.getElementById("fdescripcionError")
             if(fdescripcion.length == 0){ // obligatorio
-                fdescripcionError.innerHTML = "El campo descripcion es obligatorio"
-                error = true
+                fdescripcionError.innerHTML = "El campo descripcion es obligatorio";
+                error = true;
             }else if (fdescripcion.length >25) { 
-                fdescripcionError.innerHTML = "El campo descripcion no puede tener mas de 25 caracteres"
-                error = true
+                fdescripcionError.innerHTML = "El campo descripcion no puede tener mas de 25 caracteres";
+                error = true;
             }else{
-                fdescripcionError.innerHTML =""
-            }
+                fdescripcionError.innerHTML ="";
+            };
             
          
             //Si no hay ningun error enviar el formulario
-            if(!error) miForm.submit()
+            if(!error) document.getElementById("miForm").submit();
                 
         });
         
-    document.getElementById("fdescripcion").addEventListener('keydown', ()=>{
-        let fdescripcion = "";
-        let fcontador = 0;
-        if (document.getElementById("fdescripcion").value != null ) {
-            fdescripcion = document.getElementById("fdescripcion").value;
-            fcontador = fdescripcion.length;
-        };
-        console.log ( "desde Down, desc:" + fdescripcion + "cont:" + fcontador   );
+        document.getElementById("fdescripcion").addEventListener('keydown', ()=>{
+            let fdescripcion = "";
+            let fcontador = 0;
+            if (document.getElementById("fdescripcion").value != null ) {
+                fdescripcion = document.getElementById("fdescripcion").value;
+                fcontador = fdescripcion.length;
+            };
+            console.log ( "desde Down, desc:" + fdescripcion + "cont:" + fcontador   );
 
+            if (fcontador == 25) {
+                fdescripcion25 = fdescripcion;
+            }
+            }); 
 
-        if (fcontador == 25) {
-            fdescripcion25 = fdescripcion;
-        }
-        }); 
+        document.getElementById("fdescripcion").addEventListener('keyup', ()=>{
+            let fdescripcion = document.getElementById("fdescripcion").value;
+            let fcontador = fdescripcion.length;
+            console.log ( "desde UP, desc:" + fdescripcion + "cont:" + fcontador   );
+            if (fcontador > 25) {
+                
+                document.getElementById("fdescripcionError").innerHTML = "El campo descripcion no puede tener mas de 25 caracteres";
+                document.getElementById("fdescripcion").value = fdescripcion25;
+                document.getElementById("fcontador").innerHTML = "25/25";
+                fdescripcion = fdescripcion25;
 
-    document.getElementById("fdescripcion").addEventListener('keyup', ()=>{
-        let fdescripcion = document.getElementById("fdescripcion").value;
-        let fcontador = fdescripcion.length;
-        console.log ( "desde UP, desc:" + fdescripcion + "cont:" + fcontador   );
-        if (fcontador > 25) {
-            
-            document.getElementById("fdescripcionError").innerHTML = "El campo descripcion no puede tener mas de 25 caracteres";
-            document.getElementById("fdescripcion").value = fdescripcion25;
-            document.getElementById("fcontador").innerHTML = "25/25";
-            fdescripcion = fdescripcion25;
-
-        } else {
-    
-            document.getElementById("fcontador").innerHTML = fcontador+"/25";
+            } else {
         
-        }
-        console.log ( "desde UP, desc:" + fdescripcion + "cont:" + fcontador   );
-        }); 
-
-        </script>
+                document.getElementById("fcontador").innerHTML = fcontador+"/25";
+            
+            }
+            console.log ( "desde UP, desc:" + fdescripcion + "cont:" + fcontador   );
+            }); 
+    });
+    </script>
     </body>
 
 </html>

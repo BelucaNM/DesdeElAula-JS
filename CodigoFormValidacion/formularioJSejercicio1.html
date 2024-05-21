@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <meta charset="UTF-8">
         <Title > ejercicio 1 se lanza un escucha sobre un input 
             de manera que si se detecta una entrada se hace una validacion y se pueden personalizar los mensajes</Title>
             <style>
@@ -12,45 +13,46 @@
         <form id="miForm" name="miForm" method="get">
             <div>
             <label> Nombre:</label>
-            <input type="text" id="fname" name="fname" placeholder="Introducir nombre">
+            <br><input type="text" id="fname" name="fname" size="30" placeholder="Introducir nombre">
             <br><span id="fnameError" style="font-size: small; color: #f00;"></span>
             </div>
 
             <div>
-            <label> Apellidos:</label>
-            <input type="text" id="fapellido1" name="fapellido1" placeholder="Introducir  1er apellido">
-            <span id="fapellido1Error" style="font-size: small; color: #f00;"></span>
-            <input type="text" id="fapellido2" name="fapellido2" placeholder="Introducir  2º apellido">
-            <span id="fapellido2Error" style="font-size: small; color: #f00;"></span>
-            <span id="fnombreError" style="font-size: small; color: #f00;"></span>
+            <br><label> Apellidos:</label>
+            <br><input type="text" id="fapellido1" name="fapellido1" size="30" placeholder="Introducir  1er apellido">
+            <br><span id="fapellido1Error" style="font-size: small; color: #f00;"></span>
+            <br><input type="text" id="fapellido2" name="fapellido2" size="30" placeholder="Introducir  2º apellido">
+            <br><span id="fapellido2Error" style="font-size: small; color: #f00;"></span>
+            <br><span id="fnombreError" style="font-size: small; color: #f00;"></span>
             </div>
 
             <div>
             <br><label> Dni:</label>
-            <input type="text" id = "fdni" name="fdni"  placeholder="Introducir DNI">
+            <br><input type="text" id = "fdni" name="fdni"  placeholder="Introducir DNI">
             <br><span id="fdniError" style="font-size: small; color: #f00;"></span>
             </div>
 
             <div>
             <br><label> email:</label>
-            <input type="text"  id="femail" name="femail"  placeholder="Introducir email">
-            <span id="femailError" style="font-size: small; color: #f00;"></span>
+            <br><input type="text"  id="femail" name="femail"  size="50" placeholder="Introducir email">
+            <br><span id="femailError" style="font-size: small; color: #f00;"></span>
             </div>
-            <br><div>
+            <br>
             <div>
-                <input type="radio" id="fespañol" name="fnacion" value="español" checked />
-                <label for="fespañol">Español</label>
-              </div>
-            
-              <div>
-                <input type="radio" id="fresidente" name="fnacion" value="residente" />
-                <label for="fresidente">Residente UE</label>
-              </div>
-            
-              <div>
-                <input type="radio" id="fnoResidente" name="fnacion" value="noResidente" />
-                <label for="fnoResidente">No residente</label>
-              </div>
+                <div>
+                    <input type="radio" id="fespañol" name="fnacion" value="español" checked />
+                    <label for="fespañol">Español</label>
+                </div>
+                
+                <div>
+                    <input type="radio" id="fresidente" name="fnacion" value="residente" />
+                    <label for="fresidente">Residente UE</label>
+                </div>
+                
+                <div>
+                    <input type="radio" id="fnoResidente" name="fnacion" value="noResidente" />
+                    <label for="fnoResidente">No residente</label>
+                </div>
             </div>
            
 
