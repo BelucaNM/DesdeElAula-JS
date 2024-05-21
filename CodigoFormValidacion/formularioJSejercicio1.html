@@ -9,7 +9,7 @@
             </style>
     </head>
     <body>
-        <form name="miForm" method="get">
+        <form id="miForm" name="miForm" method="get">
             <div>
             <label> Nombre:</label>
             <input type="text" id="fname" name="fname" placeholder="Introducir nombre">
@@ -67,7 +67,10 @@
 <!-- >            <button> Enviar </button> Es equivalente al input submit<-->
 
         </form>
-        <script>
+
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+
         let onlyLetters = /^[A-Za-z]+$/;
         let onlyNumbers = /^[0-9]$/;
         let formatoFecha= /^([0-2][0-9]|(3)[0-1])(\/)(((0)[0-9])|((1)[0-2]))(\/)\d{4}$/;
@@ -87,7 +90,10 @@
             return count;
         }
 
-        miForm.addEventListener('submit', ()=>{
+        const emiForm = document.getElementById("miForm");
+		console.log (emiForm);
+		emiForm.addEventListener('submit', (event)=>{
+        
             let error= false
 
             //interrumpe el funcionamiento del evento que lo envoca en este caso es el submit, por lo tanto para el envio del formulario
@@ -206,7 +212,7 @@
             
          
             //Si no hay ningun error enviar el formulario
-            if(!error) miForm.submit()
+            if(!error) emiForm.submit()
                 
         });
         
@@ -248,7 +254,9 @@
 
         */
 
-        </script>
+    });
+
+    </script>
     </body>
 
 </html>

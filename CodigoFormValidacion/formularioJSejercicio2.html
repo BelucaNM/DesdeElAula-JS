@@ -16,7 +16,7 @@
 		</style>
 	</head>
 	<body>
-		<form method="GET" action="#" name="miForm">
+		<form method="GET" action="#" id="miForm" name="miForm">
 			<h2>Formulario de registro</h2>			
 			<label for="lnombre"><strong>Nombre:</strong><input id="lnombre" type="text" name="nombre" maxlength="50" size="50"></label>
 			<span id="lnombreError" style="font-size: small; color: #f00;"></span><br>
@@ -64,6 +64,8 @@ datos. </label>
 		</form>
 
 	<script>
+
+	document.addEventListener("DOMContentLoaded", function() {
 		let patternTelefono = /^\d{3}-\d{3}-\d{3}$/;
 		function fesVacio(str){
 			let etiqueta = document.getElementById(str).value.trim(); //quitamos espacios blancos delante y detras
@@ -79,11 +81,10 @@ datos. </label>
             };
 		};
 
-
-		miForm.addEventListener('submit', ()=>{
+		const emiForm = document.getElementById("miForm");
+		console.log (emiForm);
+		emiForm.addEventListener('submit', (event)=>{
             
-			
-
 			// inicializar variables
 			
 
@@ -98,13 +99,11 @@ datos. </label>
 
 			//edad
 			error = fesVacio ("ledad");
-			
 
 			let ledad = document.getElementById("ledad").value
 			const ledadError = document.getElementById('ledadError');
 			
 			if (document.getElementById("unSpan")){ unSpan.remove();};
-			
 
 			if (isNaN(parseInt(ledad))){
 				error = true;
@@ -129,8 +128,6 @@ datos. </label>
 				document.getElementById("laEdad").appendChild(unSpan);
 				 
 			};		
-										
-			
 
 			// Telefono
 			error = fesVacio ("ltelefono");
@@ -142,6 +139,7 @@ datos. </label>
 					ltelefonoError.innerHTML =""
             };
 
+			
 			console.log (document.querySelector('input[name="sexo"]:checked'))
 			if (document.querySelector('input[name="sexo"]:checked') == null){
 					error = true;
@@ -150,16 +148,16 @@ datos. </label>
 					lsexoError.innerHTML =""
             };
 
-			console.log (document.querySelector('input[name="poblacion"]:checked'))
-			if (document.querySelector('input[name="poblacion"]:checked') == null){
+			let lapoblacion = document.getElementById('lsel').selectedOptions[0].innerText;
+            console.log (lapoblacion);
+			if ((lapoblacion === null) || (lapoblacion === "---------")){
 					error = true;
                     lselError.innerHTML = " Indique poblacion"
             }else {
 					lselError.innerHTML =""
             };
 			
-
-					
+				
 			let laceptar = document.getElementById("laceptar");
 			let laceptarError = document.getElementById("laceptarError")
             if (!laceptar.checked) { 
@@ -167,14 +165,15 @@ datos. </label>
                 error = true
 			}else {
 				laceptarError.innerHTML =""
-            }
+            };
 
                      
             //Si no hay ningun error enviar el formulario
-            if(!error) miForm.submit()
+            if(!error) emiForm.submit()
                 
         });
-
+	
+	});
 	</script>		
 	</body>
 </html>

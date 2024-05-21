@@ -15,12 +15,15 @@
         <script>
 //      const patternEmail=/^\w+([.-_+]?\w+)*@\w+([.-]?\w+)*(\.\w{2,10})+$/;
         const patternEmail=/^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
-        //  miusers=[];
-        var users =[];
-        fetch_users();
        
-        
+        var users=[];
+        fetch_users();
+            
+        console.log(users)
 
+        //users = await fetch_users();
+        //console.log(users)
+       
         function fvalido(elId, pattern){
 			let valor = document.getElementById(elId).value.trim(); //quitamos espacios blancos delante y detras
 			let strIdError = elId +"Error";
@@ -134,7 +137,6 @@
                 let response = await fetch('http://jsonplaceholder.typicode.com/users');
                 if (response.ok){ 
                     users = await response.json();
-   //                 return users;    
                 } else {
             // Manejar errores de respuesta HTTP (ej. 404, 500)
                 throw new Error('Error en la solicitud: ' + response.status);
@@ -164,23 +166,19 @@
 
         document.addEventListener("DOMContentLoaded", function() {
 
-            const ffprovincia = document.getElementById("fprovincia");
-            console.log(ffprovincia);
-            ffprovincia.addEventListener('change',function(e){
+            fprovincia.addEventListener('change',function(e){
                 //interrumpe el funcionamiento del evento que lo envoca en este caso es el submit, por lo tanto para el envio del formulario
                 e.preventDefault();
                 
-                var laProvincia = ffprovincia.selectedOptions[0].innerText;
+                var laProvincia = fprovincia.selectedOptions[0].innerText;
                 console.log(laProvincia);
                 fetch_municipios(laProvincia);
                 
             });
 
-            const ffmiForm =  document.getElementById("miForm");
-            console.log(ffmiForm);
-            ffmiForm.addEventListener('submit', (e)=>{
+            miForm.addEventListener('submit', ()=>{
                 //interrumpe el funcionamiento del evento que lo envoca en este caso es el submit, por lo tanto para el envio del formulario
-                e.preventDefault();
+                event.preventDefault();
 
                 // validaciones
                 let hayError= false ;
@@ -211,7 +209,7 @@
                 
                     
                 //Si no hay ningun error enviar el formulario
-                if(!hayError) ffmiForm.submit();
+                if(!hayError) miForm.submit();
                 
             });
 
@@ -222,7 +220,7 @@
     </head>
 	
     <body>
-		<form method="get" action="#" id= "miForm" name="miForm">
+		<form method="get" action="#" name="miForm">
 			<h2>Formulario de registro</h2>			
 			<label for="fusername"><strong>Username:</strong>
             <input id="fusername" type="text" name="fusername" maxlength="50" size="50" placeholder="Introducir username"></label>
