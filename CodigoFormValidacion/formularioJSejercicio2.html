@@ -64,7 +64,7 @@ datos. </label>
 		</form>
 
 	<script>
-
+		let patternTelefono = /^\d{3}-\d{3}-\d{3}$/;
 		function fesVacio(str){
 			let etiqueta = document.getElementById(str).value.trim(); //quitamos espacios blancos delante y detras
 			strError = str +"Error";
@@ -82,7 +82,7 @@ datos. </label>
 
 		miForm.addEventListener('submit', ()=>{
             
-			let patternTelefono = /^\d{3}-\d{3}-\d{3}$/;
+			
 
 			// inicializar variables
 			

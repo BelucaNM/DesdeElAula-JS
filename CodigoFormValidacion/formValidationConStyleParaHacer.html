@@ -129,10 +129,11 @@ button:hover {
                     name="username"
                     id="nombreDeUsuario"
                     placeholder="Introducir nombre"
-            />
+                    />
 
             <i class="fas fa-exclamation-circle failure-icon" ></i>
             <i class="far fa-check-circle success-icon"></i>
+            <span id = "elUsuarioDisplay" hidden></span>
  <!-- ><span id = "elUsuarioDisplay"> </span> <-->
             <div class="error"></div>
 
@@ -152,6 +153,7 @@ button:hover {
 
             <i class="fas fa-exclamation-circle failure-icon"></i>
             <i class="far fa-check-circle success-icon"></i>
+            <span id = "elCorreoDisplay" hidden></span>
 <!-- ><span id = "elCorreoDisplay"> </span><-->
             <div class="error"></div>
 
@@ -172,6 +174,7 @@ button:hover {
             <i class="fas fa-exclamation-circle failure-icon"></i>
             <i class="far fa-check-circle success-icon"></i>
 <!-- ><span id = "laContrasenaDisplay"> </span><-->
+            <span id = "laContrasenaDisplay" hidden></span>
             <div class="error"></div>
 
         </div>
@@ -179,123 +182,119 @@ button:hover {
         <!-- otro código aquí -->
 
         <button id="btn" type="submit">Enviar</button>
-
-
     </form>
-
 </div>
+
 <script>
-// lanzar listener sobre el campo nombre
-const elUsuario = document.getElementById("nombreDeUsuario");
-const elEmail   = document.getElementById("correoElectronico");
-const laContrasena = document.getElementById("contrasena");
+document.addEventListener("DOMContentLoaded", () => {
+    // 
+    const elUsuario = document.getElementById("nombreDeUsuario");
+    const elEmail   = document.getElementById("correoElectronico");
+    const laContrasena = document.getElementById("contrasena");
 
-const elUsuarioDisplay = document.getElementById("elUsuarioDisplay");
-const elCorreoDisplay = document.getElementById("elEmailDisplay");
-const laContrasenaDisplay = document.getElementById("laContrasenaDisplay");
+    const elUsuarioDisplay = document.getElementById("elUsuarioDisplay");
+    const elCorreoDisplay = document.getElementById("elCorreoDisplay");
+    const laContrasenaDisplay = document.getElementById("laContrasenaDisplay");
 
-const divError = document.querySelectorAll('div.error');
-divError[0].innerHTML = "Username cannot be blank";
-divError[1].innerHTML = "Email cannot be blank";
-divError[2].innerHTML = "Password cannot be blank";
+    const divError = document.querySelectorAll('div.error');
+    divError[0].innerHTML = "Username cannot be blank";
+    divError[1].innerHTML = "Email cannot be blank";
+    divError[2].innerHTML = "Password cannot be blank";
 
-const iconFailure = document.querySelectorAll('i.failure-icon');
-Array.from(iconFailure).forEach((elemento) => {
-//        elemento.style.visibility="visible"; // no era visibilidad
-        elemento.style.opacity=1; 
-    });
-const iconSuccess = document.querySelectorAll('i.success-icon');
-Array.from(iconSuccess).forEach((elemento) => {
-//        elemento.style.visibility = "hidden";
-        elemento.style.opacity=0;
-    });
+    const iconFailure = document.querySelectorAll('i.failure-icon');
+    Array.from(iconFailure).forEach((elemento) => {
+    //      elemento.style.visibility="visible"; // no era visibilidad
+            elemento.style.opacity=1; 
+        });
 
-/*
-elUsuario.addEventListener ('input',(e) => {
-    elUsuarioDisplay.textContent =elUsuario.value;
-    
-})
+    const iconSuccess = document.querySelectorAll('i.success-icon');
+    Array.from(iconSuccess).forEach((elemento) => {
+    //      elemento.style.visibility = "hidden";
+            elemento.style.opacity=0;
+        });
 
-elEmail.addEventListener ('input',(e) => {
-    elCorreoDisplay.textContent =elEmail.value;
-    
-})
-laContrasena.addEventListener ('input',(e) => {
-    laContrasenaDisplay.textContent =laContrasena.value;
-    
-    
-})
-*/
+    elUsuario.addEventListener ('input',(e) => {
+        divError[0].innerHTML="";
+        elUsuarioDisplay.textContent =elUsuario.value;
+        })
 
-formulario.addEventListener('submit', (event)=>{
-    //interrumpe el funcionamiento del evento que lo envoca en este caso es el submit, 
-    
-    event.preventDefault()
-    let error = false;
-    
-    
-    let onlyLetters = /^[A-Za-z]+$/;  
-    
+    elEmail.addEventListener ('input',(e) => {
+        divError[1].innerHTML="";
+        elCorreoDisplay.textContent = elEmail.value;
+        
+        })
 
-    if (elUsuario.value.trim().length == 0) {
-            error = true;
-            divError[0].innerHTML = "Username cannot be blank";
-            iconSuccess [0].style.opacity = 0;
-            iconFailure [0].style.opacity=1;
-  
-            } else if (!(onlyLetters.test(elUsuario.value))) {
+    laContrasena.addEventListener ('input',(e) => {
+        divError[2].innerHTML="";
+        laContrasenaDisplay.textContent =laContrasena.value;
+        })
+
+
+    formulario.addEventListener('submit', (event)=>{
+        //interrumpe el funcionamiento del evento que lo envoca en este caso es el submit, 
+        event.preventDefault()
+
+        let error = false;
+        let onlyLetters = /^[A-Za-z]+$/;  
+        
+        if (elUsuario.value.trim().length == 0) {
                 error = true;
-                divError[0].innerHTML = "Username only must have letters";
+                divError[0].innerHTML = "Username cannot be blank";
+                iconSuccess [0].style.opacity = 0;
+                iconFailure [0].style.opacity=1;
+    
+                } else if (!(onlyLetters.test(elUsuario.value))) {
+                error = true;
+                divError[0].innerHTML = "Username cannot be blank and only must have letters";
                 iconSuccess [0].style.opacity = 0;
                 iconFailure [0].style.opacity=1; 
 
             } else {
-            divError[0].innerHTML = "";
-            iconSuccess [0].style.opacity=1;
-            iconFailure [0].style.opacity = 0;
+                divError[0].innerHTML = "";
+                iconSuccess [0].style.opacity=1;
+                iconFailure [0].style.opacity = 0;
 
-            elUsuario.value = elUsuario.value.trim();
+                elUsuario.value = elUsuario.value.trim();
             };
-            
-    
-    let pattern=/^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+                
+        
+        let pattern=/^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
 
-    if (elEmail.value.length == 0) {
-            error = true;
-            divError[1].innerHTML = "Email cannot be blank";
-            iconSuccess [1].style.opacity = 0;
-            iconFailure [1].style.opacity= 1;
+        if (elEmail.value.length == 0) {
+                error = true;
+                divError[1].innerHTML = "Email cannot be blank";
+                iconSuccess [1].style.opacity = 0;
+                iconFailure [1].style.opacity= 1;
 
-            } else if (!(pattern.test(elEmail.value))) { 
+        } else if (!(pattern.test(elEmail.value))) { 
                 error = true;
                 divError[1].innerHTML = "Incorrect email";
                 iconSuccess [1].style.opacity = 0;
                 iconFailure [1].style.opacity=1;
-            
-            } else {
+                
+        } else {
                 divError[1].innerHTML = "";
                 iconSuccess [1].style.opacity=1;
                 iconFailure [1].style.opacity = 0;
+        };
 
-            }
-
-    if (laContrasena.value.length == 0) {
+        if (laContrasena.value.length == 0) {
             error = true;
             divError[2].innerHTML = "Password cannot be blank";
             iconSuccess [2].style.opacity = 0;
             iconFailure [2].style.opacity=1;
 
-                      
-            } else {
-                divError[2].innerHTML = "";
-                iconSuccess [2].style.opacity=1;
-                iconFailure [2].style.opacity =0;
+        } else {
+            divError[2].innerHTML = "";
+            iconSuccess [2].style.opacity=1;
+            iconFailure [2].style.opacity =0;
 
-            }
-        if (!error){formulario.submit()}
+        };
+            
+        if (!error){formulario.submit()};
 
         })
+    });
 </script> 
-
 </body>
 </html>
