@@ -4,7 +4,7 @@
 		<meta HTTP-EQUIV="Expires" CONTENT="no-cache">
 		<meta charset="UTF-8">
 		<meta name="description" content="Formulario">
-		<title>Formulario de registro - Mi web</title>
+		<title>Formulario Xarxa Social Añadir Grupo</title>
 		<style>
 			label:not(.inline), input:not(.inline), textarea{
 				display: block;
@@ -42,19 +42,24 @@
 	<script>
 
 	document.addEventListener("DOMContentLoaded", function() {
-        
-      let gruposArray = [];  
-      const emiForm = document.getElementById("fmiForm");
-	  console.log (emiForm);
-	  emiForm.addEventListener('submit', (event)=>{
+    
+        emiForm = document.getElementById("fmiForm");
+	    console.log (emiForm);
 
-                // inicializar variables
+    // lanza el listener del envio
+	    emiForm.addEventListener('submit', (event)=>{
+
+    //interrumpe el funcionamiento del evento  para el envio del formulario
+        event.preventDefault();
+
+    // inicializar variables
+        let gruposArray = [];
         const censoredWords = ["word1", "word2", "word3"];
         const oneMegaBytesInBytes = 1024*1024; 
         const pesoLimite = oneMegaBytesInBytes * 2; // 2 megabyte para imagenes
         let regex = new RegExp(/[^\s]+(.*?).(jpg|jpeg|png|gif|JPG|JPEG|PNG|GIF)$/);
   
-        // Definicion de Funciones
+    // Definicion de Funciones
 		function fesVacio(str){
 			let etiqueta = document.getElementById(str).value.trim(); //quitamos espacios blancos delante y detras
 			strError = str +"Error";
@@ -86,15 +91,10 @@
 	  	return !!patronURL.test(urlString);
         };
 
-		
-            
-        //interrumpe el funcionamiento del evento que lo envoca en este caso es el submit, por lo tanto para el envio del formulario
-        event.preventDefault()
-
-        // Todas las validaciones se hacen en el submit. 
-        //comprueba campos vacios
+	// Todas las validaciones se hacen en el submit. 
+        
 		let error= false ;
-			
+		
         //descripcion 
 		error = fesVacio ("fdescripcion"); // el campo es obligatorio
         if (!error) { // si el campo descripcion no es vacio se comprueban palabras malsonantes 
@@ -120,9 +120,9 @@
         let vffoto = document.getElementById("ffoto").value.trim();
         console.log (vffoto);
         etiquetaError = document.getElementById('ffotoError');
-        if (!isValidURL(vffoto)) { 
+        if (!isValidURL(vffoto)) { // valida la URL
                 error = true;
-                etiquetaError.innerHTML = "la URL no es correcta";
+                etiquetaError.innerHTML = "La URL no es correcta";
          };
 
         // objetivos
@@ -135,11 +135,9 @@
                 eobjetivosError.innerHTML = "Debe seleccionar maximo tres etiquetas";
                 error = true;
 		 };
-
-        error = fesVacio ("ffoto");
-
             
-/* Si hubiera que validar la imagen 
+/* Codigo si hubiera que validar la imagen 
+
             const oneMegaBytesInBytes = 1024*1024; 
             const pesoLimite = oneMegaBytesInBytes * 2; // 2 megabyte
             const extensionesPermitidas =  ['jpg','jpeg','png'];
@@ -166,22 +164,27 @@
                 };
 */
                      
-            //Si no hay ningun error enviar el formulario
+        //Si no hay ningun error enviar el formulario creando un registro en el array de grupos
         if(!error) { // en ejecución seria : emiForm.submit()
 
             vdescripcion = document.getElementById('fdescripcion').value.trim();
             vffoto = document.getElementById("ffoto").value.trim();
-            vobjetivos = vArray;
             vnombre = document.getElementById('fnombre').value.trim();
+            console.log (vArray);
 
-
-            nuevoGrupo = '{   "nom":" '+ vnombre + '", "descripcio" : " ' + vdescripcion + '", "imatge": "' + vffoto + '", "tags": "' + vobjetivos + '"}'; 
-            gruposArray.push (nuevoGrupo);
+            nuevoGrupo = '{   nom:" '+ vnombre + '", descripcio : " ' + vdescripcion + '", imatge: "' + vffoto + '", tags : [';
+                        
+            vArray.forEach(tag => {
+                    nuevoGrupo = nuevoGrupo + '"' + tag.innerHTML + '",';
+                     });
+            nuevoGrupo = nuevoGrupo + ']}';
+            
+            gruposArray.push(nuevoGrupo);
             console.log (gruposArray);
             alert ( "Se han enviado los datos sin error ");
          };
 	
-	    });
+	    }); // fin de listener de submit
     });
 	</script>		
 	</body>

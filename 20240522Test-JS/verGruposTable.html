@@ -1,0 +1,152 @@
+<HTML>
+    <HEAD>
+    <title> XarxaSocial Ver Grupos </title>
+
+    <meta charset="utf-8" >
+    <link rel="canonical" href="https://multitod.com/iconos-para-paginas-web-codigo-php.php" />
+    <style>
+                
+                .icoBoli {font-size: 20px;}
+                .icoBasu {font-size: 20px;}
+                .icoEscr {font-size: 20px; opacity : 0}
+                .icoDown {font-size: 20px;}
+                td { border: 2px solid red;}
+                table {border:  collapse; }
+                .invisible {opacity: 0;}
+                #drop_zone {
+                    border: 5px dashed blue;
+                    width: 300px;
+                    height: 200px;
+                    }
+
+    </style>  
+    </HEAD>
+    
+    <body>
+
+        <p><strong> GRUPOS </strong> </p>
+        <div>
+             
+        <label>Nombre:<input type="text" id="nom" size="25"> </label><br>  
+        <label>Tag: <input type="text" id="tag" size="25"> </label><br>
+               
+        </div><br>
+
+        <a href="#" onclick="javascript:selPor('nom')">[Selecciona Nom]</a>
+        <a href="#" onclick="javascript:selPor('tag')">[Selecciona TAG]</a>
+        
+        <table id="tableGrupos" border="1">
+            <thead>
+                <tr> 
+                    <td> Nombre </td>
+                    <td> Descripcio </td>
+                    <td> Imatge </td>
+                    <td> Tag </td>
+                    <td> Tag </td>
+                    <td> Tag </td>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+        
+          
+    <script>
+        window.grupos = [
+                {
+                nom: "Tu no ets de Vilanova si no …", 
+                descripcio: "...", 
+                imatge: "http://xxxxxxxx", 
+                tags:["social"]
+                },
+                {
+                nom: "Antics alumnes Escola XXXX",
+                descripcio: "...",
+                imatge: "http://xxxxxxxx",
+                tags: ["social","records"]
+                },
+                {
+                nom: "Vilanova imatges dahir i avui",
+                descripcio: "...",
+                imatge: "http://xxxxxxxx",
+                tags: ["records"]
+                },
+                {
+                nom: "Anem a caminar",
+                description: "...",
+                imatge: "http://xxxxxxxx",
+                tags: ["esport", "salut"]
+                },
+                {
+                nom: "Club Esportiu Ribes",
+                descripcio: "...",
+                imatge: "http://xxxxxxxx",
+                tags: ["esport", "aventura"]
+                }
+                ];
+
+        function creaTable(losGrupos) {
+            etbody = document.getElementsByTagName('tbody')[0];
+            etbody.innerHTML ="";
+
+            losGrupos.forEach((grupo) => {
+                 
+                let nuevaFila = etbody.insertRow();
+                let cell1 = nuevaFila.insertCell (0);
+                let cell2 = nuevaFila.insertCell (1);
+                let cell3 = nuevaFila.insertCell (2);
+                let cell4 = nuevaFila.insertCell (3);
+                let cell5 = nuevaFila.insertCell (4);
+                let cell6 = nuevaFila.insertCell (5);
+                cell1.textContent = grupo['nom'];
+                cell2.textContent = grupo['descripcio'];
+                cell3.innerHTML = grupo['imatge'];
+                cell4.innerHTML = grupo['tags'][0];
+                if ( grupo['tags'][1] !== undefined ) {
+                cell5.innerHTML = grupo['tags'][1];};
+                if ( grupo['tags'][2] !== undefined ) {
+                cell6.innerHTML = grupo['tags'][2];};
+            
+            });
+        };
+        function selPor(str) {
+            etbody = document.getElementsByTagName('tbody')[0];
+            etbody.innerHTML ="";
+            
+            let elnom = document.getElementById("nom").value;
+            let eltag = document.getElementById("tag").value;
+            let gruposFiltro = [];
+            
+            if ((elnom == "") && (eltag == "")) {
+                gruposFiltro = grupos; }; // defecto
+
+            if ((str == 'nom') && (elnom != "")) {
+                console.log (str);
+                console.log (elnom);
+
+                grupos.forEach((grupo) => {  
+                    console.log ( grupo['nom'] );
+                    if (grupo['nom'] === elnom) gruposFiltro.push(grupo);
+                });
+            };
+                 
+            if ((str == 'tag') && (eltag != "")) {
+                grupos.forEach((grupo) => {  
+                    grupo['tags'].forEach((tag) => {
+                    if ( tag === eltag) gruposFiltro.push(grupo);
+                    });
+                });
+            };              
+            
+            creaTable(gruposFiltro);
+            };
+
+               
+
+        creaTable(grupos); // inicia con todos los elementos 
+
+         
+   
+    </script>
+    </body>
+</HTML>
