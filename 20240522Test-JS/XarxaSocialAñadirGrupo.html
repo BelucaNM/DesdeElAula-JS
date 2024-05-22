@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta HTTP-EQUIV="Expires" CONTENT="no-cache">
+		<meta charset="UTF-8">
+		<meta name="description" content="Formulario">
+		<title>Formulario de registro - Mi web</title>
+		<style>
+			label:not(.inline), input:not(.inline), textarea{
+				display: block;
+			}
+			
+            * {font-family: Verdana, Geneva, Tahoma, sans-serif;}
+
+            
+		</style>
+	</head>
+	<body>
+		<form method="GET" action="#" id="fmiForm" name="fmiForm">
+			<h2>Formulario de registro</h2>			
+			<label for="fnombre"><strong>Nombre de Grupo:</strong><input id="fnombre" type="text" name="fnombre" size="50"></label>
+			<span id="fnombreError" style="font-size: small; color: #f00;"></span><br>
+			<label for="fdescripcion"><strong>Descripcion:</strong><input id="fdescripcion" type="text" name="fdescripcion" maxlength="50" size="50"></label>
+			<span id="fdescripcionError" style="font-size: small; color: #f00;"></span><br>
+            <label><strong>Foto: </strong><input type="text" id="ffoto" name="ffoto"></label>
+            <span id="ffotoError" style="font-size: small; color: #f00;"></span><br>
+			<br><label><strong>Objetivos del Grupo :</strong></label>
+            <select id = "fobjetivos" multiple>
+                  <option value="Social" >Social</option>
+                  <option value="Deportes" >Deportes</option>
+                  <option value="Recuerdos" >Recuerdos</option>
+                  <option Value="Salud">Salud</option>
+                  <option Value="Cine">Cine</option>
+                  <option Value="Entretenimiento">Entretenimiento</option>
+            </select>
+            <span id="fobjetivosError" style="font-size: small; color: #f00;"></span>
+
+			
+			<input type="submit" name="submit" value="Enviar">
+		</form>
+
+	<script>
+
+	document.addEventListener("DOMContentLoaded", function() {
+        
+      let gruposArray = [];  
+      const emiForm = document.getElementById("fmiForm");
+	  console.log (emiForm);
+	  emiForm.addEventListener('submit', (event)=>{
+
+                // inicializar variables
+        const censoredWords = ["word1", "word2", "word3"];
+        const oneMegaBytesInBytes = 1024*1024; 
+        const pesoLimite = oneMegaBytesInBytes * 2; // 2 megabyte para imagenes
+        let regex = new RegExp(/[^\s]+(.*?).(jpg|jpeg|png|gif|JPG|JPEG|PNG|GIF)$/);
+  
+        // Definicion de Funciones
+		function fesVacio(str){
+			let etiqueta = document.getElementById(str).value.trim(); //quitamos espacios blancos delante y detras
+			strError = str +"Error";
+			console.log(strError);
+			let etiquetaError = document.getElementById(strError);
+            if(etiqueta.length==0){ // obligatorio
+                etiquetaError.innerHTML = "El campo es obligatorio";
+                return true;
+            }else{
+                etiquetaError.innerHTML ="";
+				return false;
+            };
+		};
+
+        function isValidURL (urlString ) {
+	  	var patronURL = new RegExp(
+            // valida protocolo
+            '^(https?:\\/\\/)?'+
+            // valida nombre de dominio
+	    	'((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+
+            // valida OR direccion ip (v4)
+	    	'((\\d{1,3}\\.){3}\\d{1,3}))'+
+            // valida puerto y path
+		    '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+
+            // valida queries
+		    '(\\?[;&a-z\\d%_.~+=-]*)?'+
+            // valida fragment locator
+	    	'(\\#[-a-z\\d_]*)?$','i'); 
+	  	return !!patronURL.test(urlString);
+        };
+
+		
+            
+        //interrumpe el funcionamiento del evento que lo envoca en este caso es el submit, por lo tanto para el envio del formulario
+        event.preventDefault()
+
+        // Todas las validaciones se hacen en el submit. 
+        //comprueba campos vacios
+		let error= false ;
+			
+        //descripcion 
+		error = fesVacio ("fdescripcion"); // el campo es obligatorio
+        if (!error) { // si el campo descripcion no es vacio se comprueban palabras malsonantes 
+                // quitamos espacios blancos delante y detras y pasamos a minusculas
+                let vdescripcion = document.getElementById('fdescripcion').value.trim().toLowerCase();
+                console.log  (vdescripcion);
+            
+                let etiquetaError = document.getElementById('fdescripcionError');
+                censoredWords.forEach(censoredWord => {
+                    if (vdescripcion.includes(censoredWord) ) {
+                        error = true;
+                        etiquetaError.innerHTML = "No se permiten palabras malsonantes";
+                    }; 
+                });
+        };
+
+        // nombre 
+        error = fesVacio ("fnombre"); // el campo es obligatorio
+
+        // foto 
+        error = fesVacio ("ffoto"); // el campo es obligatorio
+
+        let vffoto = document.getElementById("ffoto").value.trim();
+        console.log (vffoto);
+        etiquetaError = document.getElementById('ffotoError');
+        if (!isValidURL(vffoto)) { 
+                error = true;
+                etiquetaError.innerHTML = "la URL no es correcta";
+         };
+
+        // objetivos
+        let eobjetivosError = document.getElementById("fobjetivosError");	
+        let vobjetivos = document.getElementById("fobjetivos").selectedOptions;	
+
+        console.log (vobjetivos);
+        var vArray = Array.from(vobjetivos)
+		if ((vArray.length < 0)||(vArray.length > 3)) {
+                eobjetivosError.innerHTML = "Debe seleccionar maximo tres etiquetas";
+                error = true;
+		 };
+
+        error = fesVacio ("ffoto");
+
+            
+/* Si hubiera que validar la imagen 
+            const oneMegaBytesInBytes = 1024*1024; 
+            const pesoLimite = oneMegaBytesInBytes * 2; // 2 megabyte
+            const extensionesPermitidas =  ['jpg','jpeg','png'];
+            const miInput = document.querySelector('ffoto');
+
+            let archivo = document.getElementById('ffoto').files[0];
+            let etiquetaError = document.getElementById('ffotoError');
+            
+        // Destructuramos para obtener el nombre y el tamaño
+            const { name: archivoNombre, size: archivoPeso } = this.files[0];
+
+
+        // Validamos si el file una extensión válida
+            const fileExtension = archivoNombre.split(".").pop();
+            if(!regex.test(archivoNombre)){
+                error = true;
+                etiquetaError.innerHTML ='Formato no válido, solo se admite jpg|jpeg|png|gif|JPG|JPEG|PNG|GIF'; 
+                };
+
+        // Validamos el peso
+            if(archivoPeso > pesoLimite) {
+                error = true;
+                etiquetaError.innerHTML ='El fichero es demasiado grande'; 
+                };
+*/
+                     
+            //Si no hay ningun error enviar el formulario
+        if(!error) { // en ejecución seria : emiForm.submit()
+
+            vdescripcion = document.getElementById('fdescripcion').value.trim();
+            vffoto = document.getElementById("ffoto").value.trim();
+            vobjetivos = vArray;
+            vnombre = document.getElementById('fnombre').value.trim();
+
+
+            nuevoGrupo = '{   "nom":" '+ vnombre + '", "descripcio" : " ' + vdescripcion + '", "imatge": "' + vffoto + '", "tags": "' + vobjetivos + '"}'; 
+            gruposArray.push (nuevoGrupo);
+            console.log (gruposArray);
+            alert ( "Se han enviado los datos sin error ");
+         };
+	
+	    });
+    });
+	</script>		
+	</body>
+</html>
