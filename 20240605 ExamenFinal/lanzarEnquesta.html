@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta charset="UTF-8">
+    <Title > Lanzar la Encuesta </Title>
+    <style>
+    * {font-family: Verdana, Geneva, Tahoma, sans-serif;}
+                
+    a {
+        font-family:Verdana, Geneva, Tahoma, sans-serif;
+        text-align: center;
+        margin-top: 15px;
+        margin-right: 15px;
+        padding-left: 10px;
+        padding-right: 10px;
+        width: 100%;
+        height: 45px;
+        background-color: #f2796e;
+        border: 2px solid #f2796e;
+        border-radius: 4px;
+        color: #fff;
+        font-size: 15px;
+        cursor: pointer;
+        box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        transition: all 0.1s ease;
+    }
+    textarea {
+        font-family: Verdana, Geneva, Tahoma, sans-serif; 
+        font-size: 14px;
+    }
+    </style>
+    
+    </head>
+    <body>
+    <header>
+            <div id="header">
+                 <span ><img id="logo" src=".\imgCodigo\logo.jpg" class = "rounded-circle"></span>
+                 <span>Encuesta</span>
+             </div>
+    </header>
+    
+    <form id="miForm" name="miForm" method="get">
+  
+        <div>
+            <input  id="fpregunta" name="fpregunta" placeholder="Introducir pregunta:"></input>
+            <span id="fpreguntaError" style="font-size: small; color: #f00;"></span>
+        </div>
+        <a type=button name="bOpciones"  href="javascript:generarEncuesta()">
+        
+        <div id="fOpciones">
+            
+            
+        </div>
+
+        <button type="input" href="" name="bPostea" value="POST" >
+    
+        </form>
+
+    <script>
+        
+    function añadeOpcion(nombreOpcion) { 
+
+        let fOpciones = document.getElementById("fOpciones");
+        
+/* Debería generar el codigo equivalente a 
+        <div>
+        <label> OpcionN:</label>
+        <textarea  id="fOpcionN" name="fOpcionN"></textarea>
+        <span id="fcontadorN" ></span>
+        <span id="fdescripcionErrorN""></span> </div>*/
+
+        let nuevaOpcion = document.createElement("div");
+        nuevaOpcion.id="f" + nombreOpcion;
+        fOpciones.appendChild (elDiv);
+
+        let nuevaLabel = document.createElement("label");
+        nuevaLabel.innerHTML= nombreOpcion;
+        nuevaOpcion.appendChild (nuevaLabel);
+
+        let elTextArea =document.createElement("textarea");
+        elTextArea.innerHTML = "<textarea  id=f" + nombreOpcion +" name= f" + nombreOpcion +"></textarea>";
+        nuevaOpcion.appendChild (elTextArea);
+
+        let elSpan = document.createElement("span");
+        elSpan.innerHTML = "<span id=f" + nombreOpcion + "Contador ></span>";
+        nuevaOpcion.appendChild (elSpan);
+
+        elSpan = document.createElement("span");
+        elSpan.innerHTML = "<span id=f" + nombreOpcion + "Error ></span>";
+        nuevaOpcion.appendChild (elSpan);
+
+        idTextArea = "f"+nombreOpcion;
+
+// cada opcion tendrá un Listener sobre la longitud del texto, la funcion recibe un string
+    document.getElementById(idTextArea).addEventListener('keyup', ()=>{
+
+        let fTexto25 ="";
+        let vopcion = document.getElementById(idTextArea).value;
+        let fcontador = fopcion.length;
+        console.log ( "desde UP, desc:" + fopcion + "cont:" + fcontador   );
+        if (vcontador > 25) {
+            fOpcionError  = fOpcion + "Error";
+            fOpcionContador = fopcion + "Contador";
+            document.getElementById(fOpcionError).innerHTML = "El campo descripcion no puede tener mas de 25 caracteres";
+            document.getElementById(fOpcion).value = fdescripcion25;
+            document.getElementById(fOpcionContador).innerHTML = "25/25";
+            fTexto = fTexto25;
+
+        } else {
+        
+                document.getElementById("fcontador").innerHTML = fcontador+"/25";
+            
+        }
+            console.log ( "desde UP, desc:" + fdescripcion + "cont:" + fcontador   );
+            }); 
+
+     document.getElementById(nombreOpcion).addEventListener('keydown', ()=>{
+            let fdescripcion = "";
+            let fcontador = 0;
+            if (document.getElementById(fOpcion).value != null ) {
+                fdescripcion = document.getElementById("fdescripcion").value;
+                fcontador = fdescripcion.length;
+            };
+            console.log ( "desde Down, desc:" + fdescripcion + "cont:" + fcontador   );
+
+            if (fcontador == 25) {
+                fdescripcion25 = fdescripcion;
+            }
+            }); 
+    };
+    
+    function generarEncuesta (){
+
+// muestra los dos primeros campos de entrada para las opciones 1 y 2
+    añadeOpcion ("fOpcion1");
+    añadeOpcion ("fOpcion2");
+// y un boton para añadir dos opciones más
+
+     };
+    
+  
+
+    function registraBDEncuesta (){
+    };
+  
+
+ // primera carga de DOM   
+    document.addEventListener("DOMContentLoaded", function() { 
+
+     // Lanza listener para validar el campo pregunta
+        let ePregunta = document.getElementById($fPregunta); // la pregunta la valido directamente
+
+        ePregunta.addEventListener('input',() => { 
+                ePregunta.setCustomValidity('');
+                ePregunta.checkValidity(); 
+                console.log(" validación para "+ ePregunta.name+ " "+ ePregunta.validity);
+                //                $mensaje = "";
+                //                if (miInput.validity.inputMissing)    { let $mensaje = "Campo Obligatorio";};
+                //                if (miInput.validity.patternMismatch) { let $mensaje = "Formato no válido";};                
+                //                 miInput.setCustomValidity($mensaje);
+                //                miInput.reportValidity();
+
+            });
+        ePregunta.addEventListener('invalid',() => { // esto es en Submit !!
+            console.log(miInput.validity);
+                //                let $mensaje = "";
+                if (miInput.validity.inputMissing)    { let $mensaje = "Campo Obligatorio";};
+                if (miInput.validity.patternMismatch) { let $mensaje = "Formato no válido";};                
+                miInput.setCustomValidity($mensaje);
+                //               miInput.reportValidity();
+            })
+
+           
+       
+        const emiForm = document.getElementById("miForm");
+		console.log (emiForm);
+
+        //validación on submit de la encuesta
+
+        emiForm.addEventListener('submit', (event)=>{
+        
+            let error= false
+
+            //interrumpe el funcionamiento del evento que lo envoca en este caso es el submit, por lo tanto para el envio del formulario
+            event.preventDefault()
+
+            // validaciones fpregunta
+            let fpregunta = document.getElementById("fpregunta").value.trim()
+            if(fpregunta.length==0){ // obligatorio
+                fpreguntaError.innerHTML = "Una encuesta sin pregunta parece muy abierta. Indique por favor la pregunta"
+                error = true
+            }else{
+                fpreguntaError.innerHTML = ""
+                
+            };
+
+            let fopcion1 = document.getElementById("fopcion1").value.trim()
+            let fopcion2 = document.getElementById("fopcion2").value.trim()
+            let fopcion3 = document.getElementById("fopcion3").value.trim()
+            let fopcion4 = document.getElementById("fopcion4").value.trim()
+
+            //accedo al elemento span nombreError
+            let fopcion1Error = document.getElementById("fopcion1Error")
+            let fopcion2Error = document.getElementById("fopcion2Error")
+            let fopcion3Error = document.getElementById("fopcion3Error")
+            let fopcion4Error = document.getElementById("fopcion4Error")
+
+            if(fopcion1.length==0){ // obligatorio
+                fopcion1Error.innerHTML = "Esta opcion es obligatoria"
+                error = true
+            }else{ 
+                fopcion1Error.innerHTML =""
+            };
+
+            if(fopcion2.length==0){ // obligatorio
+                fopcion2Error.innerHTML = "Esta opcion es obligatoria"
+                error = true
+            }else{ 
+                fopcion2Error.innerHTML =""
+            };
+
+            // No hay que verificar que la longitud sea mayor de 25 caracteres porque ya se limita la entrada en el campo  
+            
+                    
+         
+            //Si no hay ningun error enviaría el formulario
+            if(!error) {
+//                emiForm.submit()
+// Preparo un array para registro en BD
+            
+                let eEncuesta = array (nombre=>fpregunta,
+                                    opcion1=>fopcion1,
+                                    opcion2=>fopcion2,
+                                    opcion3=>fopcion3,
+                                    opcion4=>fopcion4,
+                                    votOpcion1=>0,
+                                    votOpcion2=>0,
+                                    votOpcion3=>0,
+                                    votOpcion4=>0)
+//envío el array a php para registro en BD
+            registrarEncuesta();
+        
+
+            };
+                
+        });
+        
+
+/*
+    document.getElementById("fdescripcion").addEventListener('keydown', ()=>{
+        let fdescripcion = "";
+        let fcontador = 0;
+        if (document.getElementById("fdescripcion").value != null ) {
+            fdescripcion = document.getElementById("fdescripcion").value;
+            fcontador = fdescripcion.length;
+        };
+        console.log ( "desde Down, desc:" + fdescripcion + "cont:" + fcontador   );
+
+
+        if (fcontador == 25) {
+            fdescripcion25 = fdescripcion;
+        }
+        }); 
+
+    document.getElementById("fdescripcion").addEventListener('keyup', ()=>{
+        let fdescripcion = document.getElementById("fdescripcion").value;
+        let fcontador = fdescripcion.length;
+        console.log ( "desde UP, desc:" + fdescripcion + "cont:" + fcontador   );
+        if (fcontador > 25) {
+            
+            document.getElementById("fdescripcionError").innerHTML = "El campo descripcion no puede tener mas de 25 caracteres";
+            document.getElementById("fdescripcion").value = fdescripcion25;
+            document.getElementById("fcontador").innerHTML = "25/25";
+            fdescripcion = fdescripcion25;
+
+        } else {
+    
+            document.getElementById("fcontador").innerHTML = fcontador+"/25";
+        
+        }
+        console.log ( "desde UP, desc:" + fdescripcion + "cont:" + fcontador   );
+        }); 
+
+        */
+
+    });
+
+    </script>
+    </body>
+
+</html>
