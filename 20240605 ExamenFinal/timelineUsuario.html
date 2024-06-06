@@ -8,7 +8,17 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script> 
     <Title > TimelineUsuario </Title>
-    <style></style>
+    <style>
+    .conGap{
+        
+            margin-top:10px;
+}
+    .puntos{
+            border-top:1px dotted #e2e2e2;
+            border-bottom:1px dotted #e2e2e2;
+            margin-top:10px;
+}
+    </style>
     </head>
 
     
@@ -24,6 +34,10 @@
             <div id="fOpciones" name="nOpciones" class="d-grid form-floating mb-3 mt-3">
             </div>
         </div>
+        <div  id="resultados" class = " container pt-3 pb-3 mt-3 bg-light shadow-lg">
+            <div id="fResultados" name="nRpciones" class="d-grid form-floating mb-3 mt-3">
+            </div>
+        </div>
         <div>
         <div class="col-2"></div>
         </div>
@@ -35,17 +49,39 @@
         <div class="col-8">
 <script>
 
+function refrescaPorcentajes(){
+    let totalVotos = 0; 
+    for ( let key in encuesta ) {
+        console.log( encuesta[key] ); 
+          
+        if (key != 'nombre') {
+            totalVotos += encuesta[key].vot;
+        }};
+    for ( let key in encuesta ) {
+        if (key != 'nombre') {
+            let idSpan = "r" + key;
+            let elSpan = document.getElementById(idSpan)
+            let idSpanValor = Math.round((encuesta[key].vot / totalVotos) * 100);
+            elSpan.innerHTML = encuesta[key].txt + " tiene "+ encuesta[key].vot + " voto, con un "+idSpanValor + "%";
+        }};
+}
+
 document.addEventListener("DOMContentLoaded", function() {  // primera carga de DOM 
-    let encuesta = {
+ // propuesta de estructura de datos  , guardo la encuesta en Storage para persistencia y comprobar votones  
+    window.encuesta = {
     nombre: 'Que personaje le agrada mas?',
-    opcion1: {txt: 'Homer', vot: 1},
-    opcion2: {txt: 'Bart', vot: 1},
-    opcion3: {txt: 'Marge', vot: 0},
-    opcion4: {txt: 'Lisa', vot: 0}
+    Opcion1: {txt: 'Homer', vot: 0},
+    Opcion2: {txt: 'Bart', vot: 0},
+    Opcion3: {txt: 'Marge', vot: 0},
+    Opcion4: {txt: 'Lisa', vot: 0}
+    
 };
-    /* Debería generar el codigo equivalente a 
+    window.suVoto = false;
+    window.firstTime = true;
+    /* Se crea el grupo de botones de votacion
+    Debera generar el codigo equivalente a 
     <button type = button class="btn btn-primary" 
-    id ="bOpcioni" name="nOpcioni">Texto de la opcion</button>
+    id ="bopcioni" name="nopcioni">Texto de la opcion</button>
     */
    
     elContenedor=document.getElementById("fOpciones");
@@ -67,13 +103,38 @@ document.addEventListener("DOMContentLoaded", function() {  // primera carga de 
             button.id= "f" + key;
             button.name= "n" + key;
             button.type= "button";
-            button.classList.add("border", "border-2","border-dark");
-            button.onclick = ()=>{
+            button.classList.add("border", "border-2","border-dark", "conGap");
+            button.onclick = (e)=>{
                 
-                encuesta[key].vot += 1;
+                if( window.suVoto) {
+                    if (window.firstTime){
+                    alert("Usted no debería poder votar otra vez, pero lo vamos a dejar para probar la funcionalidad de la APP");
+                    firstTime = false;
+                    }
+                };
+                console.log (e.target.id);
+                var elIdconF = e.target.id;
+                var elId = elIdconF.slice(1);
+                encuesta[elId].vot += 1;
+                refrescaPorcentajes();
+                window.suVoto = true;
                             
             };
-        document.getElementById("fOpciones").appendChild(button);
+            document.getElementById("fOpciones").appendChild(button);
+
+            //Crea un campo de resultados
+            let elSpan = document.createElement("span");
+            elSpan.innerHTML = encuesta[key].vot;
+//            elSpan.classList.add("btn","btn-light","btn-sm");
+            elSpan.id= "r" + key;
+            elSpan.name= "k" + key;
+            elSpan.type= "button";
+            elSpan.classList.add("border-2","puntos");
+            elSpan.innerHTML = encuesta[key].txt;
+            
+            document.getElementById("fResultados").appendChild(elSpan);
+
+
     };
     };
 });
