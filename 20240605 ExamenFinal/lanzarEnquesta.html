@@ -1,53 +1,46 @@
 <!DOCTYPE html>
 <html>
-    <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <meta description="Basecon favicon">
+    <link rel="shortcut icon" href=".\imgCodigo\laXarxaFavicon.png">
+    <link rel="canonical" href="https://multitod.com/iconos-para-paginas-web-codigo-php.php" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script> 
     <Title > Lanzar la Encuesta </Title>
-    <style>
-    * {font-family: Verdana, Geneva, Tahoma, sans-serif;}
-                
-    a {
-        font-family:Verdana, Geneva, Tahoma, sans-serif;
-        text-align: center;
-        margin-top: 15px;
-        margin-right: 15px;
-        padding-left: 10px;
-        padding-right: 10px;
-        width: 100%;
-        height: 45px;
-        background-color: #f2796e;
-        border: 2px solid #f2796e;
-        border-radius: 4px;
-        color: #fff;
-        font-size: 15px;
-        cursor: pointer;
-        box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-        transition: all 0.1s ease;
-    }
-    input {
-        font-family: Verdana, Geneva, Tahoma, sans-serif; 
-        font-size: 14px;
-    }
-    </style>
-    
+    <style></style>
     </head>
+    
     <body>
     <header>
         <div id="header">
             <span ><img id="logo" src=".\imgCodigo\logo.jpg" class = "rounded-circle"></span>
-            <span>Encuesta</span>
+            <span class="h3">bla bla bla </span>
         </div>
     </header>
-    <form id="miForm" name="miForm" method="get">
-        <div>
-            <input  id="fpregunta" size = 40  name="fpregunta" placeholder="Introducir pregunta:"></input>
-            <span id="fpreguntaError" style="font-size: small; color: #f00;"></span>
-        </div>
-        <a  id="fEncuesta" name="fEncuesta"  href="javascript:generaEncuesta()">Genera la Encuesta</a>
-        <div id="fOpciones" name="fOpciones">
-        </div>
-        <button type="submit" id ="bPostea" name="bPostea" value="POST" > POST</button>
-        </form>
+    <div class="row">
+    <div class="col-2"></div>
+    <div class="col-8">
+        <div  id="contenedor" class = " container pt-3 pb-3 mt-3 bg-light shadow-lg">
+            <form id="miForm" name="miForm" method="post">
+            <div class="form-floating mb-3 mt-3">
+                <input  id="fpregunta" name="fpregunta"  size = 35  placeholder="Cualquier persona puede contestar !!" class="form-control"></input>
+                <label for ="fpregunta" class="form-label" >Cualquier persona puede contestar !!</label>
+                <span id="fpreguntaError" style="font-size: small; color: #f00;"></span>
+            </div>
+            <div class="form-floating mb-3 mt-3">
+                <a class="btn btn-primary btn-sm btn-dark"  id="fEncuesta" name="nEncuesta" href="javascript:generaEncuesta()">Genera la Encuesta</a>    
+                <button class="btn btn-primary" id ="bPostea" name="bPostea" type="submit" value="POST"  >POST</button>
+            </div>
+            </form>
+            
+            <br><br>
+            <div id="fOpciones" name="nOpciones" class="form-floating mb-3 mt-3">
+            </div>
+
+    </div>
+    <div class="col-2"></div>
+    </div>
         <dialog id="wmodal" close>
             <form method="dialog">
               <section>
@@ -61,48 +54,55 @@
         </dialog>
     
     <script>
-        
+
+    function creaPrueba (nombreOpcion){
+        let laOpcion = "f"+nombreOpcion;
+        let message ="estoy en " + laOpcion;
+        let button = document.getElementById(laOpcion);
+        button.addEventListener('click', message, true);
+    };
+    
     function creaContadorChar(nombreOpcion){
         // cada opcion tendrá un Listener sobre la longitud del texto, la funcion recibe un string
 
-        fOpcion = "f"+nombreOpcion;
-        console.log ("creando listener para " + fOpcion);
-        document.getElementById(fOpcion).addEventListener('keyup', ()=>{
+        let laOpcion = "f"+nombreOpcion;
+        console.log ("creando listener para " + laOpcion);
+        document.getElementById(laOpcion).addEventListener('keyup', ()=>{
 
-                fOpcion25 = fOpcion + "25";
-                fOpcionError  = fOpcion + "Error";
-                fOpcionContador = fOpcion + "Contador";
-                console.log (fOpcion25, fOpcionError, fOpcionContador);
+                let laOpcion25 = laOpcion + "25";
+                let laOpcionError  = laOpcion + "Error";
+                let laOpcionContador = laOpcion + "Contador";
+                console.log (laOpcion25, laOpcionError, laOpcionContador);
 
-                let texto = document.getElementById(fOpcion).value;
+                let texto = document.getElementById(laOpcion).value;
                 let contador = texto.length;
-                console.log ( "desde UP " + fOpcion + ", desc:" + texto + "cont:" + contador   );
+                console.log ( "desde UP " + laOpcion + ", desc:" + texto + "cont:" + contador   );
                 if (contador > 25) {
                     
-                    document.getElementById(fOpcionError).innerHTML = "El campo no puede tener mas de 25 caracteres";
-                    document.getElementById(fOpcion).value = window[fOpcion25];
-                    document.getElementById(fOpcionContador).innerHTML = "25/25";
+                    document.getElementById(laOpcionError).innerHTML = "El campo no puede tener mas de 25 caracteres";
+                    document.getElementById(laOpcion).value = window[laOpcion25];
+                    document.getElementById(laOpcionContador).innerHTML = "25/25";
                     
                 } else {
                     
-                    document.getElementById(fOpcionContador).innerHTML = contador +"/25";
+                    document.getElementById(laOpcionContador).innerHTML = contador +"/25";
                     
                 };
-                console.log ( "desde UP,"+ fOpcion + ", desc:" + texto + "cont:" + fcontador   );
+                console.log ( "desde UP,"+ laOpcion + ", desc:" + texto + "cont:" + contador   );
         }); 
 
     
-        document.getElementById(fOpcion).addEventListener('keydown', ()=>{
+        document.getElementById(laOpcion).addEventListener('keydown', ()=>{
             let texto = "";
             let contador = 0;
-            if (document.getElementById(fOpcion).value != null ) {
-                texto = document.getElementById(fOpcion).value;
+            if (document.getElementById(laOpcion).value != null ) {
+                texto = document.getElementById(laOpcion).value;
                 contador  = texto.length;
             };
-            console.log ( fOption + "desde Down, desc:" + texto + "cont:" + contador   );
+            console.log ( laOpcion + "desde Down, desc:" + texto + "cont:" + contador   );
 
             if (contador == 25) {
-                campo = fOpcion +"25";
+                campo = laOpcion +"25";
                 window[campo] = texto;
             }
             }); 
@@ -111,13 +111,12 @@
 
     function añadeOpcion(nombreOpcion) { 
 
-        let fOpciones = document.getElementById("fOpciones");
-        
-/* Debería generar el codigo equivalente a 
+       
+        /* Debería generar el codigo equivalente a 
         <div>
         <label> OpcionN:</label>
         <input  id="fOpcionN" name="fOpcionN">
-        <span id="fcontadorN" ></span>
+        <span id="fContadorN" ></span>
         <span id="fdescripcionErrorN""></span> 
         </div>*/
 
@@ -125,20 +124,24 @@
         
         let nuevaOpcion = document.createElement("div");
         nuevaOpcion.id="fdiv" + nombreOpcion;
+        nuevaOpcion.classList.add("form-floating","mb-3","mt-3");
         const referenceElement = document.getElementById("fButtonMas");
         const parentElement = referenceElement.parentNode;
         parentElement.insertBefore(nuevaOpcion, referenceElement);
     
+        let elInput =document.createElement("input");
+        elInput.id = "f" + nombreOpcion;
+        elInput.name = "n" + nombreOpcion;
+        elInput.placeholder="Introduzca Opcion";
+        elInput.className="form-control";
+        elInput.size = 40;
+        nuevaOpcion.appendChild (elInput);
+        
 
         let nuevaLabel = document.createElement("label");
         nuevaLabel.innerHTML= nombreOpcion;
+        nuevaLabel.setAttribute('for', "f"+ nombreOpcion);
         nuevaOpcion.appendChild (nuevaLabel);
-
-        let elInput =document.createElement("input");
-        elInput.id = "f" + nombreOpcion;
-        elInput.name = "f" + nombreOpcion;
-        elInput.size = 40;
-        nuevaOpcion.appendChild (elInput);
 
         let elSpan = document.createElement("span");
         elSpan.id = "f" + nombreOpcion +"Contador";
@@ -152,22 +155,28 @@
 
     
     function añadeButtonMas(){
-        let button = document.createElement("button");
-        button.innerHTML = "Añadir";
-        button.className = "btn btn-primary";
+        let button = document.createElement("a");
+        button.innerHTML = "Agregar";
+        button.classList.add("btn","btn-primary","btn-sm","btn-dark");
         button.id= "fButtonMas";
-        button.name= "fButtonMas";
+        button.name= "nButtonMas";
+        button.type= "button";
         button.onclick = ()=>{
             
-            const divOpciones = document.querySelector('div[name="fOpciones"]');
+            const divOpciones = document.getElementById("fOpciones");
             const inputs = divOpciones.querySelectorAll('input');
-            if (inputs.length < 4 ) {
+            if (inputs.length < 3 ) {
                 añadeOpcion("Opcion3");
-                añadeOpcion("Opcion4");
                 creaContadorChar ("Opcion3");
+            }else{
+                if (inputs.length < 4 ) {
+                añadeOpcion("Opcion4");
                 creaContadorChar ("Opcion4");
-            } else {
-            alert("No se pueden agregar mas opciones");
+                } else {
+                    if (inputs.length < 5 ) {
+                            alert("No se pueden agregar mas opciones");
+                    }
+                }
             };
         };
         document.getElementById("fOpciones").appendChild(button);
@@ -207,7 +216,7 @@
     function generaEncuesta (){
 
     // detecta si se han introducido opciones
-        const divOpciones = document.querySelector('div[name="fOpciones"]');
+        const divOpciones = document.getElementById("fOpciones");
         const inputs = divOpciones.querySelectorAll('input');
         if (inputs.length < 2 ) { // añade dos opciones y boton
     
@@ -239,85 +248,69 @@
 
  
     document.addEventListener("DOMContentLoaded", function() {  // primera carga de DOM  
-    // variables para control de entrada de texto
-        window.fOpcion125 ="";
-        window.fOpcion225 ="";
-        window.fOpcion325 ="";
-        window.fOpcion425 ="";
+        // variables para control de entrada de texto
+            window.fOpcion125 ="";
+            window.fOpcion225 ="";
+            window.fOpcion325 ="";
+            window.fOpcion425 ="";
+            
+            
+
         
+        // Lanza listener para postear encuesta   
+        const emiForm = document.getElementById("miForm");
+        console.log (emiForm);
 
-    // Lanza listener para validar el campo pregunta; no usado
-        let ePregunta = document.getElementById("fEncuesta"); // la pregunta la valido directamente
-
-        ePregunta.addEventListener('input',() => { 
-                ePregunta.setCustomValidity('');
-                ePregunta.checkValidity(); 
-                console.log(" validación para "+ ePregunta.name+ " "+ ePregunta.validity);
-                //                $mensaje = "";
-                //                if (miInput.validity.inputMissing)    { let $mensaje = "Campo Obligatorio";};
-                //                if (miInput.validity.patternMismatch) { let $mensaje = "Formato no válido";};                
-                //                 miInput.setCustomValidity($mensaje);
-                //                miInput.reportValidity();
-
-            });
-        ePregunta.addEventListener('invalid',() => { // esto es en Submit !!
-            console.log(miInput.validity);
-                //                let $mensaje = "";
-                if (miInput.validity.inputMissing)    { let $mensaje = "Campo Obligatorio";};
-                if (miInput.validity.patternMismatch) { let $mensaje = "Formato no válido";};                
-                miInput.setCustomValidity($mensaje);
-                //               miInput.reportValidity();
-            })
-
-           
-    // Lanza listener para postear encuesta   
-    const emiForm = document.getElementById("miForm");
-	console.log (emiForm);
-
-    emiForm.addEventListener('submit', (event)=>{  //validación on submit de la encuesta
-            let error= false
+        emiForm.addEventListener('submit', (event)=>{  //validación on submit de la encuesta
+            let error= false;
 
             //interrumpe el funcionamiento defecto del evento y para el envio del formulario
-            event.preventDefault()
+            event.preventDefault();
 
             // validaciones fpregunta
             let vpregunta = document.getElementById("fpregunta").value.trim()
             if(vpregunta.length==0){ // obligatorio
-                fpreguntaError.innerHTML = "Una encuesta sin pregunta parece muy abierta. Indique por favor la pregunta"
-                error = true
+                    fpreguntaError.innerHTML = "Una encuesta sin pregunta parece muy abierta. Indique por favor la pregunta"
+                    error = true
             }else{
-                fpreguntaError.innerHTML = ""
+                    fpreguntaError.innerHTML = ""
+                    
+            };
+
+    // Selecciona el div con el atributo name="fOpciones"
+            const divOpciones = document.getElementById("fOpciones");
+
+    // Selecciona todos los inputs dentro del div seleccionado
+            const inputs = divOpciones.querySelectorAll('input');
+
+    // Las dos primeras opciones son obligatorias
+            inputs.forEach((input, index) => {
+                let texto = input.value.trim()
+                if((texto.length==0) && ((index == 0)||(index == 1))){
+                    input.innerHTML = "No puede dejar las dos primeras opciones vacías";
+                    error = true;
                 
-            };
-
-// Selecciona el div con el atributo name="fOpciones"
-        const divOpciones = document.querySelector('div[name="fOpciones"]');
-
-// Selecciona todos los inputs dentro del div seleccionado
-        const inputs = divOpciones.querySelectorAll('input');
-
-// Las dos primeras opciones son obligatorias
-        inputs.forEach((input, index) => {
-            let texto = input.value.trim()
-            if((texto.length==0) && ((index == 0)||(index == 1))){
-                input.innerHTML = "No puede dejar esta opción vacía";
-                error = true;
-            
-            };
-// No hay que verificar que la longitud sea mayor de 25 caracteres porque ya se limita la entrada en el campo  
-// Si no hay ningun error enviaría el formulario
-            if(!error) {
-//              
-// Preparo un array para registro en BD
-            
-                let eEncuesta = array (nombre=>fpregunta,
-                                    opcion1=>[txt=>texto1,vot=votOpcion1],
-                                    opcion2=>[txt=>texto1,vot=votOpcion1],
-                                    opcion3=>[txt=>texto1,vot=votOpcion1],
-                                    opcion4=>[txt=>texto1,vot=votOpcion1]);
-                                    
-//envío el array a php para registro en BD
-            registrarEncuesta();
+                };
+    // No hay que verificar que la longitud sea mayor de 25 caracteres porque ya se limita la entrada en el campo  
+    // Si no hay ningun error enviaría el formulario
+                if(!error) {
+    //              
+    // Preparo un array para registro en BD
+                
+    let encuesta = {
+    nombre: pregunta,
+    opcion1: {txt: opcion1, vot: votOpcion1},
+    opcion2: {txt: opcion2, vot: votOpcion2},
+    opcion3: {txt: opcion3, vot: votOpcion3},
+    opcion4: {txt: opcion4, vot: votOpcion4}
+    };
+               
+                                        
+    //envío el array a php para registro en BD
+                console.log(window.encuesta);
+                alert ("Encuesta registrada");
+                window.open("timelineUsuario.html", "Diseño Web", "width=300, height=200")
+//                registrarEncuesta(); para BD
         
 
             };
