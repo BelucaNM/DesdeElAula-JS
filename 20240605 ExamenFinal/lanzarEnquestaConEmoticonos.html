@@ -45,7 +45,7 @@
             <form id="miForm" name="miForm" method="post">
             <div class="form-floating mb-3 mt-3">
                 <input  id="fpregunta" name="fpregunta"  size = 35  placeholder="Cualquier persona puede contestar !!" class="form-control"></input>
-                <label for ="fpregunta" class="form-label" >Cualquier persona puede contestar !!</label>
+                <label for ="fpregunta" class="form-label" size = 35>Cualquier persona puede contestar !!</label>
                 <span id="fpreguntaError" style="font-size: small; color: #f00;"></span>
             </div>
             <nav class="navbar navbar-expand-sm bg-light">
@@ -84,7 +84,10 @@
               </menu>
             </form>
     </dialog>
-    
+
+    <div id="selectedIconContainer">
+        Icono seleccionado: <span id="selectedIcon"></span>
+    </div>
     
     <script>
 
@@ -272,7 +275,7 @@
         <dialog id="iconModal" close>
             <form method="dialog">
                 <menu id="menuIconModal">
-                    <button id="cancelBoton"  type="reset">Cancel</button>
+                    <button id="cancelBoton" type="reset">Cancel</button>
                 </menu>
             </form>
         </dialog> */
@@ -303,6 +306,13 @@
             const li = document.createElement('li');
             li.textContent = emoji;
             li.classList.add("icon-list");
+
+            // para cada Icono crea un listener seleccionado
+            li.onclick = function() {
+                selectedIconContainer.innerHTML = li.textContent;
+//               elDialog.style.display = "none";
+                elDialog.close();
+            }
             ul.appendChild(li);
             };
         menu.appendChild(ul);
@@ -324,7 +334,7 @@
         parentElement.insertBefore(elDialog, referenceElement);
         
     
-    // Ahora crea un li en el div 'contIconos' para invocarlo.
+    // Ahora crea un li en el div 'contIconos' para invocarlos.
     // Como 'Icono' utiliza el primero  que aparece en cada una de las lista de 'data'
 
         let elSpan = document.createElement("span");
