@@ -46,6 +46,9 @@
             <div class="form-floating mb-3 mt-3">
                 <input id="fpregunta" name="fpregunta" class="form-control" size = 35  placeholder="Cualquier persona puede contestar !!" class="form-control"></input>
                 <label for ="fpregunta" class="form-label" size = 35>Cualquier persona puede contestar !!</label>
+                <div id="selectedIconContainer">
+                    <span id="selectedIcon"></span>
+                </div>
                 <span id="fpreguntaError" style="font-size: small; color: #f00;"></span>
             </div>
             <nav class="navbar navbar-expand-sm bg-light">
@@ -85,9 +88,7 @@
             </form>
     </dialog>
 
-    <div id="selectedIconContainer">
-        Icono seleccionado: <span id="selectedIcon"></span>
-    </div>
+    
     
     <script>
 
@@ -309,9 +310,12 @@
 
             // para cada Icono crea un listener seleccionado
             li.onclick = function() {
-                selectedIconContainer.innerHTML = li.textContent;
-//               elDialog.style.display = "none";
-                elDialog.close();
+                const unspan = document.createElement('span');
+                unspan.textContent = emoji;
+                unspan.innerHTML = li.textContent;
+                document.getElementById("selectedIconContainer");
+                selectedIconContainer.appendChild(unspan);
+                 elDialog.close();
             }
             ul.appendChild(li);
             };
@@ -345,7 +349,7 @@
         elSpan.addEventListener("click", function(){  
 
             console.log ( elDialog);
-            elDialog.showModal();
+             elDialog.showModal();
             if (!elDialog.open) { 
                 
                 console.log("Dialog close");
@@ -370,7 +374,7 @@
         elLi.appendChild (elSpan);
 
 // Se insertaran en la barra de Nav, antes de los botones de Generar encuesta,
-// sera el elemento de referencia
+// El boton de 'generar encuesta' es el elemento de referencia
         
         referenceElement = document.getElementById("liGeneraEnc");
         parentElement = referenceElement.parentNode;
@@ -388,8 +392,8 @@
             window.fOpcion325 ="";
             window.fOpcion425 ="";
 
-// Crea Modales para Iconos
-       creaModales();
+
+       creaModales(); // Crea Modales para Iconos
 
 // Lanza listener para postear encuesta   
         const emiForm = document.getElementById("miForm");
@@ -455,6 +459,7 @@
                 // limpia pantalla    
                 document.getElementById("fpregunta").value = "";
                 document.getElementById("fOpciones").innerHTML="";
+                document.getElementById("selectedIconContainer").innerHTML="";
 
             };
                 
