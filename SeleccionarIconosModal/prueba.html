@@ -1,0 +1,32 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modal de Iconos</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <button id="openModalBtn">Seleccionar Icono</button>
+
+    <div id="iconModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <ul class="icon-list">
+                <li><i class="fas fa-home"></i></li>
+                <li><i class="fas fa-user"></i></li>
+                <li><i class="fas fa-cog"></i></li>
+                <!-- Añade más iconos según sea necesario -->
+            </ul>
+        </div>
+    </div>
+
+    <div id="selectedIconContainer">
+        Icono seleccionado: <span id="selectedIcon"></span>
+    </div>
+
+    <script src="scripts.js"></script>
+</body>
+</html>
