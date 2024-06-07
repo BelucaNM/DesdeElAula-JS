@@ -240,6 +240,9 @@
     };
 
     function registraBDEncuesta (){
+           // Aquí se puede agregar el código para enviar el formulario
+           alert ("Encuesta registrada");
+
     };
 
  
@@ -278,7 +281,7 @@
 
     // Selecciona todos los inputs dentro del div seleccionado
             const inputs = divOpciones.querySelectorAll('input');
-    
+   // Preparo un array para registro en BD   
     let encuesta = {
         nombre: vpregunta,
         Opcion1: {txt: "", vot: 0},
@@ -309,28 +312,12 @@
     // No hay que verificar que la longitud sea mayor de 25 caracteres porque ya se limita la entrada en el campo  
     // Si no hay ningun error enviaría el formulario
             if(!error) {
-    //              
-    // Preparo un array para registro en BD
+                console.log(encuesta);
+                registraBDEncuesta();
                 
- /*   let encuesta = {
-    nombre: vpregunta,
-    Opcion1: {txt: opcion1, vot: votOpcion1},
-    Opcion2: {txt: opcion2, vot: votOpcion2},
-    Opcion3: {txt: opcion3, vot: votOpcion3},
-    Opcion4: {txt: opcion4, vot: votOpcion4}
-    }; */
-            console.log(encuesta);
-                
-            alert ("Encuesta registrada");
         // limpia pantalla    
-            document.getElementById("fpregunta").value = "";
-            document.getElementById("fOpciones").innerHTML="";
-
-
- //envío el array a php para registro en BD
-//           registrarEncuesta(); para BD
-        
-
+                document.getElementById("fpregunta").value = "";
+                document.getElementById("fOpciones").innerHTML="";
             };
                 
         });
