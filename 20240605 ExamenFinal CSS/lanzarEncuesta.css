@@ -1,0 +1,192 @@
+*{ font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size : 16px;
+    font-weight : 400;
+    box-sizing: border-box;
+    color: black;
+    }
+.invisible {opacity: 0;}
+.visible   {opacity: 1;}
+
+div {
+    
+    justify-content:center;
+    align-items:center;
+}
+
+body{ margin: 0;
+    display: block;
+    text-align: start;
+    background-color: white;
+    border:none;
+}
+
+.grid-container {
+    display: grid;
+/*    border: 2px dotted black; */
+    grid-template-columns: 10% 80% 10%; /* Crea 3 columnas de igual tamaño */
+    grid-template-rows: 100px 100px auto auto; /* Crea 4 filas */
+    gap: 0px; /* Espacio entre las celdas */
+    align-items:normal;
+    justify-items:normal;
+}
+
+.grid-item {
+    border: 1px solid g;
+    background-color: #3498db;
+    color: #fff;
+    text-align: left;
+    padding: 20px;
+    font-size: 30px;
+}
+.header{
+    grid-row: 2/3;
+    grid-column: 2/3;
+    background-color: rgb(224, 220, 220);
+    border-color: grey;
+    border-left :0px;
+    border-bottom : 0px;
+    border-top: 6px;
+    border-right: 6px;
+    border-color: aqua;
+    display:flex;
+    justify-content:left;
+    align-items:center;
+    
+}
+.cuerpo{
+    grid-row: 3/4;
+    grid-column: 2/3;
+    background-color: rgb(233, 231, 231);
+    border-color: grey;
+    border-left :0px;
+    border-bottom : 0px;
+    border-top: 2px;
+    border-right: 2px;
+    padding-top: 0px;
+    padding-bottom:0px;
+}
+.footer{
+    grid-row: 4/5;
+    grid-column: 2/3;
+    background-color: rgb(224, 220, 220);
+}
+.logo{text-align:left;}
+
+#logo { 
+    overflow-clip-margin: content-box;
+    vertical-align:middle;
+    margin: 0 auto;
+    border-radius:50%;
+
+}
+
+.h1 {font-size: 30px;
+    font-weight:500; 
+}
+.mt-1 { margin-top: 1rem;} 
+.mb-1 { margin-bottom: 1rem;}
+.pt-3 { padding-top: 3rem;}  
+.pb-3 { padding-bottom: 3rem;}
+.mr-2 { margin-right: 2rem;}
+.ml-2 { margin-left: 2rem;} 
+
+.form-group label,
+.form-group input,
+.form-group span {
+            display:block;
+            width: 100%;
+            margin-bottom: 10px;
+            font: size 20px; 
+            text-align: left;
+        }
+
+
+#fpreguntaError {
+    font-size:small;
+    color: red;
+    padding-top : 8px;
+    padding-bottom: 8px;
+/*    white-space: pre-wrap;  Permite saltos de línea dentro del span 
+    word-wrap: break-word;  Permite el ajuste de palabras largas */ 
+}
+
+.iconoModal li{
+    display: inline-block; /* Para que los íconos estén en línea horizontal, si es necesario */
+    margin-right: 10px;
+    font-size: 25px;
+} 
+
+.icon-list {
+    list-style-type: none; /* Elimina los bullets */
+    padding: 0; /* Elimina el padding por defecto de la lista */
+    margin: 0; /* Elimina el margen por defecto de la lista */
+}
+
+.icon-list li {
+    display: inline-block; /* Para que los íconos estén en línea horizontal, si es necesario */
+    margin-right: 10px; /* Espacio entre los íconos */
+}
+
+#selectedIconContainer{
+    list-style-type: none; /* Elimina los bullets */
+    padding: 0; /* Elimina el padding por defecto de la lista */
+    margin: 0; /* Elimina el margen por defecto de la lista */
+}
+#selectedIconContainer li {
+    display: inline-block; /* Para que los íconos estén en línea horizontal, si es necesario */
+    margin-right: 10px; /* Espacio entre los íconos */
+    align-items: start;
+}
+
+ul {flex-direction: row;}
+li {display:list-item;}
+a  {text-decoration: none;}
+
+.navbar { 
+    display:flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: right;
+    list-style-type: none;
+    border-top: solid 2px whitesmoke;
+    border-bottom: solid 2px whitesmoke;
+    margin-top:60px;
+    
+    }
+.nav-item{
+    margin-left: 10px;
+    }
+
+#fEncuesta,
+#bPostea,
+#fButtonMas  {
+    border: solid black 1px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    padding-right:3px;
+    padding-left:3px;
+    border-radius: 3px;
+}
+
+#fEncuesta:hover{
+        color : rgb(251, 248, 248);
+        background-color: black;
+        border: 2px solid #fff;
+    }
+
+#bPostea:hover{
+        color : white;
+        background-color: black;
+        border: 2px solid #fff;
+    }
+
+    .form-floating label,  /* son los form que se crean con las opciones*/
+    .form-floating input,
+    .form-floating span {
+                display:block;
+                width: 100%;
+                margin-bottom: 10px;
+                font: size 20px; 
+                text-align: left;
+            }
+#fopciones {margin-bottom:40px;}

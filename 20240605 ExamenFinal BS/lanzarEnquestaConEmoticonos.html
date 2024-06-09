@@ -9,7 +9,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script> 
     <Title > Lanzar la Encuesta </Title>
     <style>
-        .iconoModal {font-size: 30px;}
+        
         .invisible {opacity: 0;}
         .visible {opacity: 1;}
         .category {margin-bottom: 20px;}
@@ -20,13 +20,31 @@
         }
 
         .icon-list li {
-            display: inline-block; /* Para que los íconos estén en línea horizontal, si es necesario */
-            margin-right: 10px; /* Espacio entre los íconos */
+            display: inline-block; 
+            margin: 10px; /* Espacio entre los íconos */
         }
         #contFuncional {
             margin-left: 0!important;
             margin-right: 0!important;
-        }         
+        } 
+        #fEncuesta:hover{
+            color : white;
+        }
+        #bPostea:hover{
+            color : white;
+        }
+
+        .iconoModal li{
+            display: inline-block; /* Para que los íconos estén en línea horizontal, si es necesario */
+            margin-right: 10px;
+            font-size: 25px;
+        } 
+        
+        #menuComModal{
+            margin-top: 0!important;
+            margin-bottom: 0!important;
+        }       
+
 
     </style>
     </head>
@@ -80,7 +98,7 @@
                 <p> Está seleccionando "Generar encuesta", pero los campos a rellenar estan abiertos. </p>
                 <p> Si 'Confirma' se borraran las opciones y se reiniciará la encuesta.</p>
                 <p> Pulse 'cancelar' para continuar con la encuesta.</p>
-            </section>
+              </section>
               <menu>
                 <button id="cancelBoton"  type="reset">Cancel</button>
                 <button id="confirmBoton" type="submit">Confirm</button>
@@ -319,14 +337,14 @@
             }
             ul.appendChild(li);
             };
-        menu.appendChild(ul);
-
+        
         const cancelBoton = document.createElement('button');
         cancelBoton.id = 'cancelBoton' + category.slice(0,3) ;
         cancelBoton.type = 'reset';
-        cancelBoton.textContent = 'Cancela';
+        cancelBoton.textContent = 'x';
         
         menu.appendChild(cancelBoton);
+        menu.appendChild(ul);
         form.appendChild(menu);
         elDialog.appendChild(form);
         

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+    <meta charset="utf-8">
+    <meta description="Basecon favicon">
+    <link rel="shortcut icon" href=".\imgCodigo\laXarxaFavicon.png">
+    <link rel="canonical" href="https://multitod.com/iconos-para-paginas-web-codigo-php.php" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="lanzarEncuesta.css">
+    <Title > Lanzar la encuesta </Title>
+    <style>
+
+    </style>
+    </head>
+    
+    <body>
+    <div class="grid-container">
+        
+        <div id="header" class="header grid-item">
+            <div class="logo" ><img id="logo" src=".\imgCodigo\logo.jpg"></div>
+            <span class="h1">bla bla bla </span>
+        </div>
+        
+        <div class="cuerpo grid-item">
+                <form id="miForm" name="miForm" method="post">
+                    <div class="form-group mb-1 mt-1">
+                        
+                        <label for ="fpregunta">Cualquier persona puede contestar !!</label>
+                        <input id="fpregunta" name="fpregunta" placeholder="¿Sobre que desea hacer la encuesta?" class="form-control"></input>
+                        <ul id="selectedIconContainer"></ul>                       
+                        <span id="fpreguntaError" class = "error-ayuda"></span>
+                        
+                    </div>
+                    <nav>
+                        <ul id="contIconos" class="navbar">
+                            <li id="liGeneraEnc" class = "nav-item">
+                                <a class="nav-link"  id="fEncuesta" name="nEncuesta" href="javascript:generaEncuesta()">Genera la Encuesta</a>    
+                            </li>    
+                            <li id="libPostea" class="nav-item">
+                                <button class="nav-link" id ="bPostea" name="bPostea" type="submit" value="POST"  >POST</button>
+                            </li>
+                        </ul>
+                    
+                    </nav>
+                </form>
+                <br><br>
+                <div id="fOpciones" name="nOpciones" class="form-floating mb-3 mt-3">
+                </div>
+        </div>
+
+        <div class="footer grid-item"></div>
+    </div>
+    
+    <dialog id="wmodal" close>
+            <form method="dialog">
+              <section>
+                <p> Está seleccionando "Generar encuesta", pero los campos a rellenar estan abiertos. </p>
+                <p> Si 'Confirma' se borraran las opciones y se reiniciará la encuesta.</p>
+                <p> Pulse 'cancelar' para continuar con la encuesta.</p>
+            </section>
+              <menu>
+                <button id="cancelBoton"  type="reset">Cancel</button>
+                <button id="confirmBoton" type="submit">Confirm</button>
+              </menu>
+            </form>
+    </dialog>
+
+    <script src="scripts.js"></script>
+</body>
+</html>
